@@ -181,9 +181,10 @@ After making updates, push your changes:
 1. Now push some changes or manually trigger the GitHub Action:  
    ```sh
    git add .
+   git remote add origin https://github.com/Rishi979580/FwaySMS.git
+
    git commit -m "Set up GitHub Actions for Firebase Hosting"
-   git push origin main
-   ```
+git push -u origin main   ```
 2. Go to **GitHub → Actions Tab**  
    - You should see a new workflow running  
    - Wait for the deployment to complete  
