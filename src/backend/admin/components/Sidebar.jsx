@@ -19,7 +19,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
     >
       <div className="sidebar-title">
         <div className="sidebar-brand">
-          <Badge className="icon_header" /> ADMIN Panel{" "}
+          <Badge className="icon_header" /> Admin Panel{" "}
         </div>
         <span className="icon close_icon" onClick={OpenSidebar}>
           <BiWindowClose /> {/* Close icon */}
