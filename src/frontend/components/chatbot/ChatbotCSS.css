@@ -1,0 +1,147 @@
+/* Base styles for the chatbot container */
+.chatbot-container {
+  position: fixed;
+  right: 10px;
+  bottom: 50px;
+  z-index: 1000; /* Ensure this is higher than the navbar's z-index */
+}
+
+/* Adjust the position of the chatbot for mobile devices */
+@media (max-width: 768px) {
+  .chatbot-container {
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: auto;
+    width: 100%;
+    z-index: 1001; /* Ensure this is higher than the navbar's z-index */
+  }
+}
+
+
+/* chat-with-us */
+
+/* ChatbotCSS.css */
+/* 
+.chat-with-us .rsc-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background-color: #1F59FF !important;
+  padding: 10px 20px !important;
+  border-radius: 8px 8px 0 0 !important;
+  color: white !important;
+  position: relative !important;
+}
+
+.chat-with-us .rsc-header .online-status {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.chat-with-us .rsc-header .online-status .avatar {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  margin-right: 12px !important;
+  position: relative !important;
+  border: 2px solid white !important;
+}
+
+.chat-with-us .rsc-header .online-status .avatar img {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+}
+
+.chat-with-us .rsc-header .online-status .avatar .status {
+  width: 12px !important;
+  height: 12px !important;
+  background-color: green !important;
+  border-radius: 50% !important;
+  position: absolute !important;
+  bottom: 2px !important;
+  right: 2px !important;
+  border: 2px solid white !important;
+}
+
+.chat-with-us .rsc-header .online-status .username {
+  font-size: 16px !important;
+  font-weight: bold !important;
+  color: #fff !important;
+}
+
+.chat-with-us .rsc-header .header-title {
+  flex-grow: 1 !important;
+  text-align: center !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+} */
+
+
+/* ChatbotCSS.css */
+
+.chat-with-us .rsc-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background-color: #1F59FF !important;
+  padding: 10px 20px !important;
+  border-radius: 8px 8px 0 0 !important;
+  color: white !important;
+  position: relative !important;
+}
+
+.chat-with-us .rsc-header .online-status {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.chat-with-us .rsc-header .online-status .avatar {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  margin-right: 12px !important;
+  position: relative !important;
+  border: 2px solid white !important;
+}
+
+.chat-with-us .rsc-header .online-status .avatar img {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+
+}
+
+.chat-with-us .rsc-header .online-status .avatar .status {
+  width: 12px !important;
+  height: 12px !important;
+  background-color: rgb(72, 244, 5) !important;
+  border-radius: 50% !important;
+  position: absolute !important;
+  bottom: 2px !important;
+  right: 2px !important;
+  border: 2px solid white !important;
+}
+
+.chat-with-us .rsc-header .online-status .username {
+  font-size: 16px !important;
+  font-weight: bold !important;
+  color: #fff !important;
+}
+
+.chat-with-us .notification {
+  position: absolute !important;
+  top: 15px;
+  left: 5px;
+  background-color: red !important;
+  color: white !important;
+  border-radius: 50% !important;
+  width: 40px !important;
+  height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+}

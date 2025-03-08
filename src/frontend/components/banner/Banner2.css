@@ -1,0 +1,64 @@
+/* Banner Section */
+.banner-section-2 {
+    background: url("/assets/bulk-sms-banner.jpg") center/cover no-repeat !important;
+    color: #ffffff !important;
+    padding: 80px 20px !important;
+    text-align: center !important;
+    position: relative !important;
+  }
+  
+  /* Background Overlay */
+  .banner-section-2::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0, 0, 0, 0.6) !important; /* Dark overlay */
+    z-index: 1 !important;
+  }
+  
+  /* Container */
+  .banner-section-2 .container {
+    position: relative !important;
+    z-index: 2 !important;
+  }
+  
+  /* Title */
+  .banner-title-2 {
+    font-size: 2.8rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 15px !important;
+  }
+  
+  /* Highlight Text */
+  .text-highlight {
+    color: #ffeb3b !important; /* Yellow highlight */
+  }
+  
+  /* Subtitle */
+  .banner-subtitle-2 {
+    font-size: 1.3rem !important;
+    font-weight: 500 !important;
+    margin-bottom: 5px !important;
+  }
+  
+  /* Button */
+  .banner-btn-2 {
+    font-size: 1.2rem !important;
+    padding: 12px 25px !important;
+    border-radius: 50px !important;
+    font-weight: bold !important;
+    transition: all 0.3s ease-in-out !important;
+    background: #007bff !important;
+    border: none !important;
+    color: #fff !important;
+  }
+  
+  /* Button Hover */
+  .banner-btn-2:hover {
+    background: #0056b3 !important;
+    transform: translateY(-2px) !important;
+  }
+  

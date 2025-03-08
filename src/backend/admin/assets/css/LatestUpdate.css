@@ -1,0 +1,23 @@
+.latest-update-container {
+    max-width: 400px; /* Adjust maximum width as per your design */
+    margin: auto; /* Center align the container */
+    overflow: hidden; /* Hide overflowing content */
+  }
+  
+  .latest-update-ticker {
+    animation: scroll 15s linear infinite; /* Adjust animation duration as needed */
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
+  }
+  
+  .latest-update-item {
+    margin-bottom: 10px; /* Adjust spacing between updates */
+  }
+  

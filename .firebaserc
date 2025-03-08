@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "futurewayinfotech",
+    "futurewayInfotech": "futurewayinfotech"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

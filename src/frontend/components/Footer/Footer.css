@@ -1,0 +1,67 @@
+/* Footer Container */
+.custom-footer {
+    background: linear-gradient(to right, #1a1a1a, #292929) !important;
+    color: #ffffff !important;
+    font-size: 1rem !important;
+    padding: 40px 0 !important;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2) !important;
+  }
+  
+  /* Footer Title */
+  .footer-title {
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 15px !important;
+  }
+  
+  /* Footer Contact Details */
+  .footer-contact p {
+    margin: 8px 0 !important;
+    font-size: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  /* Footer Icons */
+  .footer-icon {
+    margin-right: 10px !important;
+    font-size: 1.2rem !important;
+  }
+  
+  /* Footer Links */
+  .footer-link {
+    color: #f8f9fa !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease-in-out !important;
+  }
+  
+  /* Hover Effect for Links */
+  .footer-link:hover {
+    color: #ffcc00 !important;
+    text-decoration: underline !important;
+  }
+  
+  /* Centered Copyright Text */
+  .footer-copyright {
+    font-size: 0.9rem !important;
+    text-align: center !important;
+    margin-top: 15px !important;
+    opacity: 0.8 !important;
+  }
+  
+  /* Responsive Footer */
+  @media (max-width: 768px) {
+    .custom-footer {
+      text-align: center !important;
+    }
+  
+    .footer-contact p {
+      justify-content: center !important;
+    }
+  
+    .text-md-end {
+      text-align: center !important;
+    }
+  }
+  

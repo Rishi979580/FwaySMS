@@ -1,0 +1,104 @@
+/* SmsOrdersAdmin.css */
+
+/* General Table Styling */
+.sms-orders-container {
+    max-width: 1200px !important;
+    margin: auto !important;
+    background-color: #fff !important;
+}
+
+.card:first-child {
+    background-color: #fff !important; 
+}
+
+.sms-orders-table {
+    border-radius: 10px !important;
+    overflow: hidden !important;
+}
+
+.sms-orders-table th {
+    background-color: #343a40 !important;
+    color: white !important;
+    text-transform: uppercase !important;
+}
+
+.sms-orders-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa !important;
+}
+
+/* Search Bar */
+.sms-orders-search {
+    border-radius: 30px !important;
+    padding: 10px !important;
+    font-size: 16px !important;
+    border: 1px solid #ced4da !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+.sms-orders-search:focus {
+    border-color: #007bff !important;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5) !important;
+}
+
+/* Buttons */
+.sms-orders-btn {
+    font-size: 14px !important;
+    padding: 5px 10px !important;
+    border-radius: 5px !important;
+}
+
+.sms-orders-btn-edit {
+    background-color: #ffc107 !important;
+    color: black !important;
+    border: none !important;
+}
+
+.sms-orders-btn-edit:hover {
+    background-color: #e0a800 !important;
+}
+
+.sms-orders-btn-delete {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border: none !important;
+}
+
+.sms-orders-btn-delete:hover {
+    background-color: #c82333 !important;
+}
+
+.sms-orders-btn-save {
+    background-color: #28a745 !important;
+    color: white !important;
+    border: none !important;
+}
+
+.sms-orders-btn-save:hover {
+    background-color: #218838 !important;
+}
+
+.sms-orders-btn-cancel {
+    background-color: #6c757d !important;
+    color: white !important;
+    border: none !important;
+}
+
+.sms-orders-btn-cancel:hover {
+    background-color: #5a6268 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sms-orders-container {
+        padding: 10px !important;
+    }
+
+    .sms-orders-table {
+        font-size: 14px !important;
+    }
+
+    .sms-orders-btn {
+        font-size: 12px !important;
+        padding: 3px 6px !important;
+    }
+}

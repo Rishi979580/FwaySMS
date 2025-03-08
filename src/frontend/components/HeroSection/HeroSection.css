@@ -1,0 +1,26 @@
+.hero-section {
+    position: relative !important;
+    background: linear-gradient(135deg, #007bff, #0056b3) !important;
+    padding: 80px 20px !important;
+  }
+  
+  /* Who Can Use It Section */
+  .who-can-use h2 {
+    font-size: 2rem !important;
+    margin-bottom: 20px !important;
+  }
+  
+  /* Category Box */
+  .category-box {
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease-in-out !important;
+  }
+  
+  .category-box:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15) !important;
+  }
+  

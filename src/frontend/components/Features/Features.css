@@ -1,0 +1,38 @@
+/* Features Section Styling */
+.feature-text {
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
+    color: #333 !important;
+  }
+  
+
+  
+  h2 {
+    font-size: 2rem !important;
+    color: #007bff !important; /* Primary Theme Color */
+    text-transform: uppercase !important;
+  }
+  
+  .text-muted {
+    font-size: 1rem !important;
+    color: #6c757d !important;
+    font-weight: 400 !important;
+  }
+  
+  .d-flex {
+    background: white !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease-in-out !important;
+  }
+  
+  .d-flex:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  .text-success {
+    font-size: 1.5rem !important;
+  }
+  

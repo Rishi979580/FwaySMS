@@ -1,0 +1,434 @@
+
+================= Folder structure================================
+
+## Setup project by command
+
+npm create vite@latest project-name
+cd project-name
+npm install
+npm run dev
+
+## To create folder hirarechy :
+choco install tree
+tree "your-folder-path"/F /A
+
+e.g :
+tree "E:\FutureWay Development\Perfect-Diagnostic\Perfect-dignostic-main\src" /F /A
+
+
+## Terminal Shortcuts
+
+press h + enter to show help:
+press r + enter to restart the server
+press u + enter to show server url
+press o + enter to open in browser
+press c + enter to clear console
+press q + enter to quit
+
+## All Account Details:
+
+## Github:
+
+Email: krishikesh780@gmail.com
+repo Path: https://github.com/Bolu-kumar/perfect-medical
+
+thumbnain link: https://raw.githubusercontent.com/Bolu-kumar/futureway-education-content/main/images/perfect-diagnostic-thumbnail.png
+
+## Firebase:
+
+Email: futureway.in@gmail.com
+App Path: https://console.firebase.google.com/u/0/project/perfect-diagnostic-centre
+
+## Google drive:
+
+Email: futureway.in@gmail.com
+Folder Path: https://drive.google.com/drive/folders/1fOc2qdjs1KgB4Cl4WDLQo6JHw2CXtDnp
+
+## Project path:
+
+E:\FUTUREWAY DEVELOPMENT\PERFECT-DIAGNOSTIC\PERFECT-DIGNOSTIC-MAIN
+
+## SRC Main Folder Structure
+
+\src
+| App.jsx
+| main.jsx
+|  
++---assets
+| \---css
+| styles.css
+|
++---backend
+| \---src
+| +---admin
+| | | AdminLayout.jsx
+| | |
+| | +---assets
+| | | \---css
+| | | Admin.css
+| | | LatestUpdate.css
+| | | Sidebar.css
+| | |
+| | +---components
+| | | CleanData.jsx
+| | | DatabaseActions.jsx
+| | | DateFormat.jsx
+| | | EmailTemplates.jsx
+| | | ExportData.jsx
+| | | FilterComponent.jsx
+| | | Footer.jsx
+| | | Header.jsx
+| | | Sidebar.jsx
+| | |
+| | +---pages
+| | | +---dashboard
+| | | | AdminPageDashboard.jsx
+| | | |
+| | | +---doctors
+| | | | DoctorsManagement.jsx
+| | | |
+| | | +---employess
+| | | | EmployeeManagement.jsx
+| | | |
+| | | +---enquiry
+| | | | EnquiryList.jsx
+| | | |
+| | | +---setting
+| | | | AppointmentsAction.jsx
+| | | | EnquiryAction.jsx
+| | | | InvoicesAction.jsx
+| | | |
+| | | +---updates
+| | | | AdsPage.jsx
+| | | | NewsSlider.jsx
+| | | |
+| | | +---users
+| | | | AppointmentsList.jsx
+| | | | InvoiceForm.jsx
+| | | | InvoiceList.jsx
+| | | | MedicalInvoiceBillingForm.css
+| | | | userManageTest.jsx
+| | | |
+| | | \---utiles
+| | | DateFormats.jsx
+| | | ReferenceNoGenerator.jsx
+| | |
+| | \---websiteControl
+| | MaintenancePage.jsx
+| | WebControl.jsx
+| | WebControlContext.jsx
+| |
+| +---assets
+| | \---css
+| | styles.css
+| |
+| \---auth
+| +---components
+| | +---createAccount
+| | | UserManagementPage.jsx
+| | |
+| | +---login
+| | | Login.jsx
+| | | LoginCSS.css
+| | | SuperAdminLogin.jsx
+| | |
+| | +---logout
+| | | LogoutComponent.jsx
+| | |
+| | +---resetPassword
+| | | ForgotPassword.jsx
+| | | ForgotPasswordCSS.css
+| | |
+| | \---user
+| | NotificationPageForm.jsx
+| | UserDashboardCSS.css
+| | UserDashboards.jsx
+| |
+| \---protectRoute
+| ProtectRoute.jsx
+|
++---firebaseConfig
+| firebaseConfig.jsx
+|
+\---frontend
+\---src
++---assets
+| \---css
+| styles.css
+|
++---components
+| +---404
+| | NotFoundPage.jsx
+| |
+| +---about
+| | About.jsx
+| | AboutComponent.css
+| | AboutContent.jsx
+| |
+| +---autoPopUp
+| | AutoPopupModal.jsx
+| | AutoPopupModalCSS.css
+| |
+| +---BackToTopButton
+| | BackToTopButton.css
+| | BackToTopButton.jsx
+| |
+| +---button
+| | BookTechnician.jsx
+| | RequestContact.jsx
+| | RequestEnquiry.jsx
+| |
+| +---carousel
+| | Carousel.jsx
+| | CarouselContent.jsx
+| | CarouselCSS.css
+| |
+| +---chatbot
+| | Chatbot.jsx
+| | ChatbotCSS.css
+| |
+| +---contact
+| | Contacts.jsx
+| |
+| +---fact
+| | Fact.jsx
+| | FactContent.jsx
+| |
+| +---faq
+| | Faq.css
+| | FaqsProbsAccept.jsx
+| | FaqsProbsData.jsx
+| |
+| +---footer
+| | Footer.css
+| | FooterAddress.jsx
+| | FooterMain.jsx
+| | FooterPageLink.jsx
+| | FooterServices.jsx
+| | NewsletterSignup.jsx
+| |
+| +---form
+| | CandidateCSS.css
+| | Candidates.jsx
+| | EnquiryForm.jsx
+| | ReferenceNoGenerator.jsx
+| |
+| +---header
+| | Breacrumb.jsx
+| | Header.css
+| |
+| +---legalDocs
+| | PrivacyPolicy.jsx
+| | PrivacyPolicyContent.jsx
+| | TermsConditions.jsx
+| | TermsConditionsContent.jsx
+| |
+| +---loadingScreen
+| | loadingHomeScreen.jsx
+| |
+| +---navbar
+| | Nav.css
+| | Navbar.jsx
+| | routes.jsx
+| |
+| +---ourservices
+| | MainServices.css
+| | MainServices.jsx
+| |
+| +---ourteam
+| | Team.jsx
+| | TeamContent.jsx
+| | TeamsCSS.css
+| |
+| +---pagination
+| | PaginationComponents.jsx
+| |
+| +---scrollToTop
+| | ScrollToTop.jsx
+| |
+| +---servicestitle
+| | ServicesTitle.jsx
+| | ServicesTitleContent.jsx
+| |
+| +---Testimonial
+| | Testimonial.jsx
+| | TestimonialContent.css
+| |
+| +---topbar
+| | Tobbar.jsx
+| | TopbarContent.jsx
+| | TopbarCSS.css
+| |
+| +---whatsApp
+| | WhatsAppCSS.css
+| | WhatsAppProbesAccept.jsx
+| | WhatsAppProbesPass.jsx
+| |
+| \---whyShouldJoin
+| whyShouldJoin.jsx
+|
++---data
+| companyData.json
+| imagesData.json
+| storage.json
+| theme.json
+|
++---layout
+| MainLayout.jsx
+|
+\---pages
+| Contact.jsx
+| Enquiry.jsx
+| NotFoundPage.jsx
+| Privacy-Policy.jsx
+| Terms-Conditions.jsx
+| Unauthorized.jsx
+|
++---about
+| About.jsx
+|
++---breakingNews
+| BreakingNews.jsx
+| BreakingNewsCSS.css
+|
++---home
+| Home.jsx
+|
++---services
+| ServicesPage.jsx
+|
+\---userPages
+| BookAppointment.jsx
+| Login.jsx
+| Notification.jsx
+| Notifications.css
+| Profile.jsx
+| ResetPassword.jsx
+| UserDashboard.css
+| UserDashboard.jsx
+| UserDashboardCSS.css
+|
+\---components
+DoubtsTable.jsx
+NotificationsCard.jsx
+SuccessModal.jsx
+UserInfoCard.jsx
+
+## User Roles & Permissions
+
+### **1. Super Admin**
+
+- Full access to all system features
+- Manage users, roles, and settings
+- Enable/Disable maintenance mode website
+
+### **2. Admin**
+
+- Manage pathology tests, reports, and patient records
+- Access admin dashboard
+
+### **3. User**
+
+- Book appointments
+- Able to see appointment status
+
+---
+
+## Firebase Configuration
+
+### **Authentication**
+
+- Email/Password login
+- Role-based authentication
+
+### **Firesbase realtime Database Structure**
+
+## Path:
+
+https://perfect-diagnostic-centre-default-rtdb.asia-southeast1.firebasedatabase.app/
+
+### **Security Rules**
+
+- Only **Super Admin** can modify system settings
+- **Admins** can manage test records but not user roles
+- **Users** can only view their own test reports
+
+{
+"rules": {
+".read": "auth != null",
+".write": "auth != null",
+"users": {
+"$uid": {
+".read": "auth != null && auth.uid === $uid",
+".write": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() in ['admin', 'super-admin'])"
+}
+},
+"EnquiriesData": {
+".read": "auth != null", // Only authenticated users can read
+".write": "true" // Anyone can write
+},
+"websiteControl": {
+".read": true,
+".write": "auth != null && auth.token.role === 'super-admin'" // Ensure only super-admin can write
+}
+}
+}
+
+## Explanation:
+
+1. Global Read/Write Rules: Ensures that only authenticated users can read and write to the database.
+
+2. Users Node:
+   Read: Only the authenticated user can read their own data.
+   Write: The authenticated user can write their own data, or users with the admin or super-admin role can write to any user's data.
+
+3.EnquiriesData Node:
+Read: Only authenticated users can read.
+Write: Anyone (including unauthenticated users) can write.
+
+4.websiteControl Node:
+Read: Publicly readable.
+Write: Only users with the super-admin role can write.
+
+This setup allows both admin and super-admin roles to write to any user's data, while keeping other rules intact.
+
+---
+
+## Backup Strategy
+
+- **Git & GitHub:** Version control and code backups
+- **Firebase Backups:** Firestore & Storage backups
+- **Google Drive Sync:** Regular snapshots of critical files
+
+---
+
+## Deployment
+
+### **Steps to Deploy on Firebase Hosting**
+
+1. Install Firebase CLI:
+   ```sh
+   npm install -g firebase-tools
+   ```
+2. Login to Firebase:
+   ```sh
+   firebase login
+   ```
+3. Initialize Firebase in your project:
+   ```sh
+   firebase init
+   ```
+4. Build & Deploy:
+   ```sh
+   npm run build
+   firebase deploy
+   ```
+
+---
+
+
+---
+
+## Conclusion
+
+This documentation provides an overview of the **Pathology Management System**. For more details, check the `/docs` folder for API documentation and backup strategies.

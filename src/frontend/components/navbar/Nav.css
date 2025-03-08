@@ -1,0 +1,160 @@
+/* Navbar Styling */
+.nav-bar {
+  position: relative !important;
+  z-index: 999 !important;
+  width: 100% !important;
+  background: #ffffff !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+.nav-bar.sticky-top {
+  position: sticky !important;
+  top: 0 !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Navbar Brand (Logo) */
+.navbar-brand .logo {
+  height: 80px !important;
+  width: auto !important;
+}
+
+/* Navbar Links */
+.navbar-nav .nav-link {
+  color: #333 !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  padding: 15px !important;
+  transition: color 0.3s ease-in-out !important;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: #007bff !important;
+}
+
+/* Navbar Toggle (Mobile) */
+.navbar-toggler {
+  border: none !important;
+  outline: none !important;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none !important;
+}
+
+/* Buy SMS Button */
+.sms-button {
+  background: #007bff !important;
+  border-radius: 50px !important;
+  font-weight: bold !important;
+  padding: 12px 24px !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+.sms-button:hover {
+  background: #0056b3 !important;
+}
+
+/* Responsive Styles */
+@media (max-width: 991px) {
+  .nav-bar {
+    padding: 10px 0 !important;
+  }
+
+  .navbar-nav {
+    text-align: center !important;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px 15px !important;
+  }
+
+  .navbar-brand .logo {
+    height: 60px !important;
+  }
+
+  .sms-button {
+    width: 100% !important;
+    text-align: center !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar .nav-item .dropdown-menu {
+    display: block !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.3s ease-in-out !important;
+  }
+
+  .navbar .nav-item:hover .dropdown-menu {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+
+/* General d-flex Styling */
+.d-flex {
+  background: white !important;
+  padding: 10px !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+/* Ensure NO Box Shadow for the Logo */
+.navbar-brand.d-flex {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* Keep Box Shadow for Other Elements if Needed */
+.shadow-box {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 8px !important;
+}
+
+
+/*  logo */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between logo and text */
+}
+
+.logo {
+    height: 50px !important;
+    width: auto !important;
+    box-shadow: none !important;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.logo-text {
+    font-family: "Yeseva One", cursive !important;
+    font-size: 22px !important;
+    font-weight: bold !important;
+    margin: 0 !important;
+}
+
+.futureway {
+    color: #07bcd4 !important;
+}
+
+.sms {
+    color: #f8bd0d !important;
+}
+
+.slogan {
+    font-family: "Yeseva One", cursive !important;
+    font-size: 14px !important;
+    color: #333 !important;
+    margin: 0 !important;
+}

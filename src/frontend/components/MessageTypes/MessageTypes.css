@@ -1,0 +1,64 @@
+/* Main container */
+.message-types-container {
+    background-color: #f9f9f9 !important;
+    padding: 60px 0 !important;
+  }
+  
+  /* Section Title */
+  .section-title {
+    font-size: 2rem !important;
+    color: #333 !important;
+    font-weight: 700 !important;
+  }
+  
+  /* Section Description */
+  .section-description {
+    max-width: 700px !important;
+    margin: 0 auto !important;
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+  }
+  
+  /* Message Card */
+  .message-card {
+    border: none !important;
+    border-radius: 15px !important;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease-in-out !important;
+    padding: 25px !important;
+    background: white !important;
+  }
+  
+  .message-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  /* Icon Wrapper */
+  .icon-wrapper {
+    background: #f1f1f1 !important;
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto 15px auto !important;
+  }
+  
+  /* Card Title */
+  .card-title {
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
+    color: #333 !important;
+  }
+  
+  /* Card Description */
+  .card-description {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    max-width: 90% !important;
+    margin: 0 auto !important;
+    color: #666 !important;
+  }
+  

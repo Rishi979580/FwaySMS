@@ -1,0 +1,36 @@
+
+
+:root {
+    --primary-color: #007BFF;
+    --secondary-color: #6C757D;
+    --accent-color: #28A745;
+    --background-color: #F8F9FA;
+    --text-color: #343A40;
+  }
+  
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  header {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+  }
+  
+  button {
+    background-color: var(--accent-color);
+    color: #FFFFFF;
+  }
+  
+  .secondary {
+    color: var(--secondary-color);
+  }
+
+  /* Font */
+  .yeseva-one-regular {
+    font-family: "Yeseva One", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
