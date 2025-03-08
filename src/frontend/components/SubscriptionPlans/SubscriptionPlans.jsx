@@ -11,7 +11,7 @@ const plans = [
     messages: "50 Messages",
     features: [
       "✅ Bulk SMS",
-      "✅ WhatsApp Messaging",
+      "❌ WhatsApp Messaging",
       "❌ Email Campaigns",
       "❌ Priority Support",
       "❌ Automation"
@@ -27,7 +27,7 @@ const plans = [
     features: [
       "✅ Bulk SMS",
       "✅ WhatsApp Messaging",
-      "✅ Email Campaigns",
+      "❌ Email Campaigns",
       "❌ Priority Support",
       "❌ Automation"
     ],
@@ -41,7 +41,7 @@ const plans = [
       "✅ Bulk SMS",
       "✅ WhatsApp Messaging",
       "✅ Email Campaigns",
-      "Priority Support",
+      "❌ Priority Support",
       "❌ Automation"
     ],
     duration: "1 Month"

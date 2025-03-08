@@ -15,7 +15,7 @@ const HeroSection = () => {
     <section className="hero-section text-center bg-primary text-white py-5">
       <Container>
         <h1 className="fw-bold">Cheapest Bulk SMS Provider in India ₹0.25/SMS</h1>
-        <p className="lead">Send messages directly from your personal SIM card with ease.</p>
+        <p className="lead">We send SMS via the US route and multiple Indian operator routes.</p>
         <Button variant="light" size="lg" className="fw-bold mt-3">
           Get Started
         </Button>

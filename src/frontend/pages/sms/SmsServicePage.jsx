@@ -13,6 +13,7 @@ const SmsServiceModal = ({ show, handleClose }) => {
   const [hasPaid, setHasPaid] = useState("No");
   const [totalAmount, setTotalAmount] = useState(0); // New state for total amount
   const [showConfirmation, setShowConfirmation] = useState(false); // State for showing confirmation
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleString()); // New state for current time
 
   const [userDetails, setUserDetails] = useState({
     companyName: "",
@@ -25,13 +26,17 @@ const SmsServiceModal = ({ show, handleClose }) => {
   useEffect(() => {
     // Find the selected plan
     const selectedPlan = smsData.subscriptionPlans.find((plan) => plan.value === subscriptionPlan);
-  
+
     // Extract the price from the plan's value string
     const amount = selectedPlan ? parseInt(selectedPlan.value.match(/₹(\d+)/)?.[1] || "0", 10) : 0;
-  
+
     setTotalAmount(amount);
   }, [subscriptionPlan]);
-  
+
+  useEffect(() => {
+    setCurrentTime(new Date().toLocaleString());
+  }, [show]);
+
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -50,16 +55,16 @@ const SmsServiceModal = ({ show, handleClose }) => {
       alert("Please enter email and phone number!");
       return;
     }
-  
+
     // Extract username from email
     const emailUsername = userDetails.email.split("@")[0];
-  
+
     // Extract last 5 digits of the phone number
     const phoneLastFive = userDetails.phone.slice(-5);
-  
+
     // Create a unique search key
     const searchKey = `${emailUsername}${phoneLastFive}`;
-  
+
     const db = getDatabase();
     const smsOrderData = {
       file: csvFile ? csvFile.name : "No file uploaded",
@@ -71,21 +76,54 @@ const SmsServiceModal = ({ show, handleClose }) => {
       paymentStatus: hasPaid,
       totalAmount, // Store total amount in database
       searchKey,  // Store the generated search key
+      timestamp: currentTime, // Store the current time in database
     };
-  
+
     if (csvFile) {
       const storage = getStorage();
-      const storageRef = ref(storage, `uploads/${csvFile.name}`);
+      const timestamp = Date.now();
+      const filePath = `uploads/${userDetails.phone}/${userDetails.email}/${timestamp}_${csvFile.name}`;
+
+      const storageRef = ref(storage, filePath);
       uploadBytes(storageRef, csvFile).then(() => {
-        push(dbRef(db, "sms_orders"), smsOrderData);
+        // Store the file path in Firebase Database
+        push(dbRef(db, "sms_orders"), {
+          ...smsOrderData,
+          filePath // Save filePath in the database 
+        });
+
         setShowConfirmation(true); // Show confirmation
+        resetForm();
         handleClose();
       });
-    } else {
+
+
+    }
+
+
+    else {
       push(dbRef(db, "sms_orders"), smsOrderData);
       setShowConfirmation(true); // Show confirmation
+      resetForm();
       handleClose();
     }
+  };
+
+  const resetForm = () => {
+    setCsvFile(null);
+    setMessageType(smsData.messageTypes[0].value);
+    setSubscriptionPlan(smsData.subscriptionPlans[0].value);
+    setDltRegistered(smsData.dltOptions[0].value);
+    setCustomMessage("");
+    setHasPaid("No");
+    setTotalAmount(0);
+    setUserDetails({
+      companyName: "",
+      phone: "",
+      email: "",
+      address: "",
+      paymentConfirmed: "No",
+    });
   };
 
   const getQrCodeImage = () => {

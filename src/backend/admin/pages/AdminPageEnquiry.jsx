@@ -28,7 +28,11 @@ const AdminPageEnquiries = () => {
           const enquiriesData = [];
           snapshot.forEach((childSnapshot) => {
             const enquiry = childSnapshot.val();
-            enquiriesData.push({ id: childSnapshot.key, ...enquiry });
+            enquiriesData.push({ 
+              id: childSnapshot.key, 
+              ...enquiry, 
+              readableDate: formatDate(enquiry.timestamp) // Add readableDate property
+            });
           });
           enquiriesData.sort((a, b) => b.timestamp - a.timestamp);
           setOriginalEnquiries(enquiriesData);
@@ -87,7 +91,7 @@ const AdminPageEnquiries = () => {
               <td>{enquiry.phone}</td>
               <td>{enquiry.service}</td>
               <td>{enquiry.message}</td>
-              <td>{formatDate(enquiry.timestamp)}</td>
+              <td>{enquiry.readableDate}</td> {/* Use readableDate */}
             </tr>
           ))}
           {paginatedEnquiries.length === 0 && (
