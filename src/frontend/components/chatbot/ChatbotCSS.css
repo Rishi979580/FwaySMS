@@ -3,10 +3,10 @@
   position: fixed;
   right: 10px;
   bottom: 50px;
-  z-index: 1000; /* Ensure this is higher than the navbar's z-index */
+  z-index: 1000; /* Ensure it appears above other elements */
 }
 
-/* Adjust the position of the chatbot for mobile devices */
+/* Adjust position for mobile devices */
 @media (max-width: 768px) {
   .chatbot-container {
     top: 0;
@@ -14,134 +14,179 @@
     left: 0;
     bottom: auto;
     width: 100%;
-    z-index: 1001; /* Ensure this is higher than the navbar's z-index */
+    z-index: 1001; /* Higher than the navbar */
   }
 }
 
-
-/* chat-with-us */
-
-/* ChatbotCSS.css */
-/* 
-.chat-with-us .rsc-header {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  background-color: #1F59FF !important;
-  padding: 10px 20px !important;
-  border-radius: 8px 8px 0 0 !important;
-  color: white !important;
-  position: relative !important;
+/* Chatbot container */
+.chat-with-us {
+  font-family: "Inter", sans-serif;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
 }
 
+/* Chatbot Header */
+.chat-with-us .rsc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1F59FF;
+  padding: 10px 20px;
+  border-radius: 8px 8px 0 0;
+  color: white;
+  position: relative;
+}
+
+/* Online Status */
 .chat-with-us .rsc-header .online-status {
-  display: flex !important;
-  align-items: center !important;
+  display: flex;
+  align-items: center;
 }
 
 .chat-with-us .rsc-header .online-status .avatar {
-  width: 40px !important;
-  height: 40px !important;
-  border-radius: 50% !important;
-  margin-right: 12px !important;
-  position: relative !important;
-  border: 2px solid white !important;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+  position: relative;
+  border: 2px solid white;
 }
 
 .chat-with-us .rsc-header .online-status .avatar img {
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 50% !important;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 .chat-with-us .rsc-header .online-status .avatar .status {
-  width: 12px !important;
-  height: 12px !important;
-  background-color: green !important;
-  border-radius: 50% !important;
-  position: absolute !important;
-  bottom: 2px !important;
-  right: 2px !important;
-  border: 2px solid white !important;
+  width: 12px;
+  height: 12px;
+  background-color: rgb(72, 244, 5);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  border: 2px solid white;
 }
 
 .chat-with-us .rsc-header .online-status .username {
-  font-size: 16px !important;
-  font-weight: bold !important;
-  color: #fff !important;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
 }
 
+/* Header Title */
 .chat-with-us .rsc-header .header-title {
-  flex-grow: 1 !important;
-  text-align: center !important;
-  font-size: 18px !important;
-  font-weight: bold !important;
-} */
-
-
-/* ChatbotCSS.css */
-
-.chat-with-us .rsc-header {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  background-color: #1F59FF !important;
-  padding: 10px 20px !important;
-  border-radius: 8px 8px 0 0 !important;
-  color: white !important;
-  position: relative !important;
+  flex-grow: 1;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.chat-with-us .rsc-header .online-status {
-  display: flex !important;
-  align-items: center !important;
-}
-
-.chat-with-us .rsc-header .online-status .avatar {
-  width: 40px !important;
-  height: 40px !important;
-  border-radius: 50% !important;
-  margin-right: 12px !important;
-  position: relative !important;
-  border: 2px solid white !important;
-}
-
-.chat-with-us .rsc-header .online-status .avatar img {
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 50% !important;
-
-}
-
-.chat-with-us .rsc-header .online-status .avatar .status {
-  width: 12px !important;
-  height: 12px !important;
-  background-color: rgb(72, 244, 5) !important;
-  border-radius: 50% !important;
-  position: absolute !important;
-  bottom: 2px !important;
-  right: 2px !important;
-  border: 2px solid white !important;
-}
-
-.chat-with-us .rsc-header .online-status .username {
-  font-size: 16px !important;
-  font-weight: bold !important;
-  color: #fff !important;
-}
-
+/* Notification Badge */
 .chat-with-us .notification {
-  position: absolute !important;
+  position: absolute;
   top: 15px;
   left: 5px;
-  background-color: red !important;
-  color: white !important;
-  border-radius: 50% !important;
-  width: 40px !important;
-  height: 20px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-size: 12px !important;
-  font-weight: bold !important;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
 }
+
+/* Chat Header */
+.chat-header {
+  background: #1f59ff;
+  color: white;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 12px 12px 0 0;
+}
+
+/* Chat Options */
+.chat-option {
+  padding: 12px;
+  background: #f5f8fb;
+  border-radius: 8px;
+  display: inline-block;
+  color: #1f59ff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  border: 2px solid #1f59ff;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.chat-option:hover {
+  background: #1f59ff;
+  color: white;
+}
+
+/* Chat Links */
+a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+
+
+
+
+.floating-notification {
+  position: fixed;
+  bottom: 80px;
+  right: 80px;
+  background: #1f59ff; /* WhatsApp green */
+  color: white;
+  padding: 12px 18px;
+  border-radius: 18px 18px 4px 18px; /* Tail shape like WhatsApp received message */
+  font-size: 14px;
+  font-weight: 500;
+  display: none;
+  transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  max-width: 250px;
+  word-wrap: break-word;
+}
+
+.floating-notification.show {
+  display: block;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.floating-notification.hide {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Adding a small WhatsApp-style message tail */
+.floating-notification::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 10px solid #1f59ff; /* WhatsApp green */
+}
+
+
+

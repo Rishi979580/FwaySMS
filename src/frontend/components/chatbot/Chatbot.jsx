@@ -1,226 +1,192 @@
 import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import ChatBot from "react-simple-chatbot";
+import styled from "styled-components";
 import "./ChatbotCSS.css";
+import "./notification";
+
+const ChatWrapper = styled.div`
+  .chat-with-us {
+    font-family: "Inter", sans-serif;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+  }
+  .chat-header {
+    background: #1f59ff;
+    color: #fff;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 12px 12px 0 0;
+  }
+  .chat-option {
+    padding: 12px;
+    background: #f5f8fb;
+    border-radius: 8px;
+    display: inline-block;
+    color: #1f59ff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    border: 2px solid #1f59ff;
+    margin: 5px 0;
+    text-align: center;
+  }
+  .chat-option:hover {
+    background: #1f59ff;
+    color: #fff;
+  }
+  a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  /* Floating Notification Styling */
+  .floating-notification {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: #ff5722;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    display: none;
+    transition: opacity 0.5s ease-in-out;
+    cursor: pointer;
+    z-index: 999;
+  }
+  
+  .floating-notification.show {
+    display: block;
+    opacity: 1;
+  }
+
+  .floating-notification.hide {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+`;
+
+const chatbotData = {
+  welcome: "👋 Hello! I'm FutureWay Assistant. How can I assist you today?",
+  mainMenu: [
+    { value: "services", label: "📌 Our Services", trigger: "services" },
+    { value: "contact", label: "📞 Contact Us", trigger: "contact" },
+    { value: "pricing", label: "💰 View Pricing", trigger: "pricing" },
+    { value: "speak_agent", label: "💬 Speak to an Agent", trigger: "speak_agent" },
+    { value: "exit", label: "❌ Exit Chat", trigger: "exit_chat" },
+  ],
+  services: [
+    { value: "bulk_sms", label: "📩 Bulk SMS", trigger: "service_info" },
+    { value: "whatsapp", label: "💬 WhatsApp Marketing", trigger: "service_info" },
+    { value: "email", label: "📧 Email Marketing", trigger: "service_info" },
+    { value: "pricing", label: "💰 Pricing Plans", trigger: "pricing" },
+    { value: "main_menu", label: "🔙 Back to Main Menu", trigger: "main_menu" },
+  ],
+  pricingMessage: "📢 Choose a Plan That Fits Your Needs:\n\n🔹 Free Plan - Ideal for basic usage.\n\n🔹 Starter Pack - Individuals and small businesses.\n\n🔹 Growth Pack - Growing businesses and marketers.\n\n🔹 Business Pack - Best for enterprises with high-volume messaging needs.",
+};
 
 const ChatBotComponent = () => {
   const [steps, setSteps] = useState([]);
 
   useEffect(() => {
-    const initialSteps = [
+    const chatbotSteps = [
+      { id: "0", message: chatbotData.welcome, trigger: "main_menu" },
+      { id: "main_menu", options: chatbotData.mainMenu },
+      { id: "services", message: "Please select a service you're interested in.", trigger: "services_list" },
+      { id: "services_list", options: chatbotData.services },
+      { id: "service_info", message: "For more details, visit the link below:", trigger: "service_link" },
       {
-        id: "0",
-        message: "👋 Hi, I'm FutureWay Assistant! How can I assist you today?",
+        id: "service_link",
+        component: (
+          <div className="chat-option">
+            <a href="/enquiry" target="_blank" rel="noopener noreferrer" className="text-dark">
+              📌 Submit an Enquiry
+            </a>
+          </div>
+        ),
         trigger: "main_menu",
       },
+      { id: "pricing", message: chatbotData.pricingMessage, trigger: "pricing_link" },
       {
-        id: "main_menu",
-        options: [
-          { value: "services", label: "Our Services", trigger: "services" },
-          { value: "contact", label: "Contact Us", trigger: "contact" },
-          {
-            value: "speak_agent",
-            label: "Speak to a Representative",
-            trigger: "speak_agent",
-          },
-          {
-            value: "leave_conversation",
-            label: "End Chat",
-            trigger: "leave_conversation",
-          },
-        ],
-      },
-      {
-        id: "services",
-        message: "Please select the service you need assistance with.",
-        trigger: "services_menu",
-      },
-      {
-        id: "services_menu",
-        options: [
-          {
-            value: "website_development",
-            label: "Website Development",
-            trigger: "service_enquiry",
-          },
-          {
-            value: "pathology_crm",
-            label: "Pathology CRM",
-            trigger: "service_enquiry",
-          },
-          {
-            value: "school_crm",
-            label: "School Management CRM",
-            trigger: "service_enquiry",
-          },
-          {
-            value: "whatsapp_sms_email_marketing",
-            label: "WhatsApp/SMS/Email Marketing",
-            trigger: "service_enquiry",
-          },
-          {
-            value: "digital_marketing_social_media_post",
-            label: "Digital Marketing - Social Media Post",
-            trigger: "service_enquiry",
-          },
-          {
-            value: "digital_marketing_short_video",
-            label: "Digital Marketing - Short Video",
-            trigger: "service_enquiry",
-          },
-          {
-            value: "facebook_youtube_ads",
-            label: "Facebook/YouTube Ads",
-            trigger: "service_enquiry",
-          },
-          { value: "main_menu", label: "Main Menu", trigger: "main_menu" },
-        ],
-      },
-      {
-        id: "service_enquiry",
-        message:
-          "For more details about this service, please visit the link below or contact us at futureway.in@gmail.com or call: +91 9795298080",
-        trigger: "service_enquiry_message",
-      },
-      {
-        id: "service_enquiry_message",
+        id: "pricing_link",
         component: (
-          <div>
-            <a href="/enquiry">Click here to submit an Enquiry Form</a>
+          <div className="chat-option">
+            <a href="/pricing" target="_blank" rel="noopener noreferrer" className="text-dark">
+              🔍 View Pricing Details
+            </a>
           </div>
         ),
         trigger: "main_menu",
       },
       {
         id: "contact",
-        message:
-          "Contact Information:\n📧 Email: futureway.in@gmail.com\n📞 Phone: +91 9795298080\n📍 Address: Kaptanganj, UP, India (274301)",
+        message: "📧 Email: futureway.in@gmail.com\n📞 Phone: +91 9795298080\n📍 Location: Kaptanganj, UP, India",
         trigger: "main_menu",
       },
-      {
-        id: "speak_agent",
-        message: "Connecting you to a representative. Please wait...",
-        trigger: "agent_chat",
-      },
-      {
-        id: "agent_chat",
-        component: <div>Live Chat with a Representative (if available)</div>,
-        trigger: "main_menu",
-      },
-      {
-        id: "leave_conversation",
-        message: "Thank you for chatting with us! Have a great day! 😊",
-        end: true,
-      },
+      { id: "speak_agent", message: "⏳ Connecting you to an agent...", trigger: "agent_chat" },
+      { id: "agent_chat", component: <div>🔗 Live Chat Support (if available)</div>, trigger: "main_menu" },
+      { id: "exit_chat", message: "Thank you for chatting! Have a great day! 😊", end: true },
     ];
-
-    setSteps(initialSteps); // Set initial steps when component mounts
-
-    // Use timeout to show options after a delay
-    const timeoutId = setTimeout(() => {
-      setSteps((prevSteps) => [...prevSteps, { id: "main_menu" }]);
-    }, 3000); // 3 seconds delay before showing options
-
-    return () => clearTimeout(timeoutId); // Cleanup timeout on unmount
+    setSteps(chatbotSteps);
   }, []);
 
-  // Function to reset steps when chatbot is opened
-  const resetChat = () => {
-    const initialMessage = [
-      {
-        id: "0",
-        message: "👋 Hi, I'm FutureWay Assistant! How can I assist you today?",
-        trigger: "main_menu",
-      },
-    ];
+  // 🎯 Floating Notification Effect
+  useEffect(() => {
+    const notification = document.getElementById("floatingNotification");
 
-    setSteps(initialMessage); // Set to only initial message
+    if (notification) {
+      setTimeout(() => {
+        notification.classList.add("show");
+      }, 1000); // Show after 1 second
 
-    // Optionally, you can set a timeout to show the next message after a delay
-    const timeoutId = setTimeout(() => {
-      setSteps((prevSteps) => [
-        ...prevSteps,
-        {
-          id: "main_menu",
-          options: [
-            { value: "services", label: "Our Services", trigger: "services" },
-            { value: "contact", label: "Contact Us", trigger: "contact" },
-            {
-              value: "speak_agent",
-              label: "Speak to a Representative",
-              trigger: "speak_agent",
-            },
-            {
-              value: "leave_conversation",
-              label: "End Chat",
-              trigger: "leave_conversation",
-            },
-          ],
-        },
-      ]);
-    }, 3000); // 3 seconds delay for showing the options
-
-    return () => clearTimeout(timeoutId);
-  };
+      setTimeout(() => {
+        notification.classList.add("hide");
+        setTimeout(() => notification.classList.remove("show"), 500); // Remove after fade-out
+      }, 6000); // Hide after 6 seconds
+    }
+  }, []);
 
   const theme = {
-    background: "#f5f8fb",
-    fontFamily: "Helvetica Neue",
+    background: "#ffffff",
+    fontFamily: "Arial",
     headerFontColor: "#fff",
-    headerFontSize: "15px",
-    botBubbleColor: "#2196f3",
+    headerFontSize: "16px",
+    botBubbleColor: "#1f59ff",
     botFontColor: "#fff",
-    userBubbleColor: "#fff",
-    userFontColor: "#4a4a4a",
+    userBubbleColor: "#e1eaff",
+    userFontColor: "#1f59ff",
   };
 
   const config = {
     botAvatar: "img/user-avatar-bot.svg",
     floating: true,
     floatingStyle: {
-      right: "10px",
-      bottom: "50px",
+      background: "#1f59ff",
+      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+      borderRadius: "50%",
+      padding: "10px",
+      right: "20px",
+      bottom: "60px",
       zIndex: "999",
     },
-    // speechSynthesis: {
-    //   enable: false,
-    //   lang: "hi-IN",
-    // },
   };
-
-  const ChatBotHeader = () => (
-    <div className="online-status">
-      <div className="avatar">
-        <img src="img/user-avatar-bot.svg" alt="User Avatar" />
-        <div className="status"></div>
-      </div>
-      <div className="username">Chat with us</div>
-    </div>
-  );
-
-  const FloatingIcon = () => (
-    <div style={{ position: "relative" }}>
-      <img
-        src="img/user-avatar-bot.svg"
-        alt="Chat Icon"
-        style={{ width: "50px", height: "50px" }}
-      />
-    </div>
-  );
 
   return (
     <ThemeProvider theme={theme}>
-      {steps.length > 0 && (
-        <ChatBot
-          headerTitle={<ChatBotHeader />}
-          steps={steps}
-          {...config}
-          floatingIcon={<FloatingIcon />}
-          className="chat-with-us"
-          notificationSound="notification.mp3"
-          onRequestClose={resetChat} // Reset steps when closed
-        />
-      )}
+      <ChatWrapper>
+        {steps.length > 0 && <ChatBot headerTitle={<div className="chat-header">💬 Chat with us</div>} steps={steps} {...config} className="chat-with-us" />}
+      </ChatWrapper>
+      <div id="floatingNotification" className="floating-notification">
+  Chat with Fway AI Agent.
+</div>
+
     </ThemeProvider>
   );
 };

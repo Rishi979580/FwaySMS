@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Form, Card, Container, Alert } from "react-bootstrap";
+import { Table, Button, Form, Card, Container, Alert, Row, Col } from "react-bootstrap";
 import useSmsOrders from "../hooks/useSmsOrders";
 import filterOrders from "../utils/filterOrders";
 import "./SmsOrders.css";
@@ -111,46 +111,43 @@ const SmsOrdersAdmin = () => {
         setFile(e.target.files[0]);
     };
 
+    const handleUploadFile = async (orderId) => {
+        if (!file) return;
 
+        try {
+            const db = getDatabase();
+            const orderRef = dbRef(db, `sms_orders/${orderId}`);
 
-const handleUploadFile = async (orderId) => {
-    if (!file) return;
+            // Fetch order details from Firebase Realtime Database
+            const snapshot = await get(orderRef);
+            if (!snapshot.exists()) {
+                setMessage("❌ Order not found.");
+                return;
+            }
 
-    try {
-        const db = getDatabase();
-        const orderRef = dbRef(db, `sms_orders/${orderId}`);
+            const orderData = snapshot.val();
+            const storage = getStorage();
 
-        // Fetch order details from Firebase Realtime Database
-        const snapshot = await get(orderRef);
-        if (!snapshot.exists()) {
-            setMessage("❌ Order not found.");
-            return;
+            // ✅ Step 1: Get existing file path
+            const existingFilePath = orderData.filePath || "";
+            if (!existingFilePath) {
+                setMessage("❌ No existing file path found.");
+                return;
+            }
+
+            // ✅ Step 2: Upload the new file to the same path (overwrite)
+            const fileRef = storageRef(storage, existingFilePath);
+            await uploadBytes(fileRef, file);
+            console.log("✅ File overwritten successfully:", existingFilePath);
+
+            setFile(null);
+            setMessage("✅ File successfully replaced.");
+        } catch (error) {
+            console.error("❌ Error uploading file:", error);
+            setMessage("❌ An error occurred while uploading the file.");
         }
+    };
 
-        const orderData = snapshot.val();
-        const storage = getStorage();
-
-        // ✅ Step 1: Get existing file path
-        const existingFilePath = orderData.filePath || "";
-        if (!existingFilePath) {
-            setMessage("❌ No existing file path found.");
-            return;
-        }
-
-        // ✅ Step 2: Upload the new file to the same path (overwrite)
-        const fileRef = storageRef(storage, existingFilePath);
-        await uploadBytes(fileRef, file);
-        console.log("✅ File overwritten successfully:", existingFilePath);
-
-        setFile(null);
-        setMessage("✅ File successfully replaced.");
-    } catch (error) {
-        console.error("❌ Error uploading file:", error);
-        setMessage("❌ An error occurred while uploading the file.");
-    }
-};
-
-    
     const handleDismissMessage = () => {
         setMessage(null);
     };
@@ -167,12 +164,19 @@ const handleUploadFile = async (orderId) => {
                         </Alert>
                     )}
 
-                    <Form.Control
-                        type="text"
-                        placeholder="🔍 Search by company, phone, or email..."
-                        className="sms-orders-search mb-3"
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
+                    <Row className="mb-3">
+                        <Col md={8}>
+                            <Form.Control
+                                type="text"
+                                placeholder="🔍 Search by company, phone, or email..."
+                                className="sms-orders-search"
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </Col>
+                        <Col md={4} className="text-end">
+                            <Button variant="primary">Add New Order</Button>
+                        </Col>
+                    </Row>
 
                     <Table responsive bordered hover className="sms-orders-table text-center">
                         <thead>
@@ -197,7 +201,6 @@ const handleUploadFile = async (orderId) => {
                                     <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
                                     <td>{order.userDetails?.companyName || "N/A"}</td>
                                     <td style={{ minWidth: "200px" }}>{order.timestamp || "N/A"}</td>
-
                                     <td>{order.userDetails?.phone || "N/A"}</td>
                                     <td>{order.userDetails?.email || "N/A"}</td>
 
@@ -243,8 +246,6 @@ const handleUploadFile = async (orderId) => {
                                                 >
                                                     📂 Download
                                                 </Button>
-
-                                                
                                             </>
                                         ) : (
                                             "No File"
