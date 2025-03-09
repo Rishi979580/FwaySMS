@@ -98,14 +98,55 @@ const SmsOrdersAdmin = () => {
             .catch((error) => console.error("Error updating order:", error));
     };
 
-    const handleDelete = (orderId) => {
-        const db = getDatabase();
-        remove(dbRef(db, `sms_orders/${orderId}`))
-            .then(() => {
-                setMessage("Order deleted successfully");
-            })
-            .catch((error) => console.error("Error deleting order:", error));
+
+
+    const handleDelete = async (orderId) => {
+        try {
+    
+            const db = getDatabase();
+            const orderRef = dbRef(db, `sms_orders/${orderId}`);
+    
+            // Fetch order details
+            const snapshot = await get(orderRef);
+            if (!snapshot.exists()) {
+                setMessage("❌ Order not found.");
+                return;
+            }
+    
+            const orderData = snapshot.val();
+    
+            const storage = getStorage();
+    
+            // Check if file exists and delete it
+            if (orderData.filePath) {
+                const fileRef = storageRef(storage, orderData.filePath);
+    
+                try {
+                    await deleteObject(fileRef);
+                    console.log("✅ File deleted successfully.");
+                } catch (error) {
+                    console.error("❌ Error deleting file:", error);
+                    setMessage("❌ Failed to delete the associated file.");
+                    return; // Stop further execution if file deletion fails
+                }
+            } else {
+                console.log("ℹ️ No file associated with this order.");
+            }
+    
+            // Delete the order from the database
+            await remove(orderRef);
+            console.log("✅ Order deleted from database.");
+    
+            setOrders((prevOrders) => prevOrders.filter((order) => order.id !== orderId));
+            setMessage("✅ Order deleted successfully.");
+    
+        } catch (error) {
+            console.error("❌ Error deleting order:", error);
+            setMessage("❌ An error occurred while deleting the order.");
+        }
     };
+    
+
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -184,7 +225,7 @@ const SmsOrdersAdmin = () => {
                                 <th>Date</th>
                                 <th>Phone</th>
                                 <th>Email</th>
-                                <th>Message Type</th>
+                                <th>MessageType</th>
                                 <th>Subscription</th>
                                 <th>UserPayment</th>
                                 <th>PaymentStatus</th>
@@ -285,6 +326,8 @@ const SmsOrdersAdmin = () => {
                                                     <Button variant="danger" size="sm" className="me-2" onClick={() => handleDelete(order.id)}>
                                                         🗑
                                                     </Button>
+
+                                                    
                                                     <Form.Control type="file" onChange={handleFileChange} style={{ minWidth: "100px" }} />
                                                     <Button variant="primary" size="sm" style={{minWidth:"200px"}} onClick={() => handleUploadFile(order.id)}>
                                                         Upload Report
