@@ -11,11 +11,10 @@ const CheckReport = () => {
     const [reports, setReports] = useState([]);
     const [error, setError] = useState("");
 
-
     useEffect(() => {
         const db = getDatabase();
         const reportsRef = ref(db, "sms_orders");
-    
+
         onValue(reportsRef, async (snapshot) => {
             if (snapshot.exists()) {
                 const data = snapshot.val();
@@ -23,14 +22,13 @@ const CheckReport = () => {
                     id: key,
                     ...data[key],
                 }));
-    
+
                 // Fetch download URLs for files
                 const storage = getStorage();
                 const updatedReports = await Promise.all(
                     reportsArray.map(async (report) => {
-                        if (report.filePath) { // Make sure the filePath exists
+                        if (report.filePath) {
                             try {
-                                // Construct the correct file path
                                 const fileRef = storageRef(storage, report.filePath);
                                 const downloadURL = await getDownloadURL(fileRef);
                                 return { ...report, fileUrl: downloadURL };
@@ -42,14 +40,11 @@ const CheckReport = () => {
                         return { ...report, fileUrl: null };
                     })
                 );
-    
+
                 setReports(updatedReports);
             }
         });
     }, []);
-    
-
-
 
     const handleSearch = () => {
         if (!phone || !email) {
@@ -82,7 +77,6 @@ const CheckReport = () => {
         <Container className="py-4">
             <h2 className="text-center mb-4 fw-bold text-dark">🔍 Check Report</h2>
 
-            {/* Dismissible Error Message */}
             {error && (
                 <Alert variant="danger" onClose={() => setError("")} dismissible>
                     {error}
@@ -133,6 +127,7 @@ const CheckReport = () => {
                                 <th>Email</th>
                                 <th>Message</th>
                                 <th>Status</th>
+                                <th>Date</th>
                                 <th>Report</th>
                             </tr>
                         </thead>
@@ -145,8 +140,9 @@ const CheckReport = () => {
                                     <td>{report.userDetails.email}</td>
                                     <td>{report.messageType}</td>
                                     <td>{report.reportStatus}</td>
+                                    <td>{report.timestamp || "N/A"}</td> {/* Display Timestamp */}
                                     <td>
-                                        {report.reportStatus !== "Pending" && report.fileUrl ? (
+                                        {report.reportStatus === "Completed" && report.fileUrl ? (
                                             <a href={report.fileUrl} target="_blank" rel="noopener noreferrer">
                                                 <Button variant="primary" size="sm">
                                                     <FaDownload /> Download

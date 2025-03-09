@@ -4,7 +4,7 @@ import useSmsOrders from "../hooks/useSmsOrders";
 import filterOrders from "../utils/filterOrders";
 import "./SmsOrders.css";
 import CustomPagination from "../../../frontend/components/pagination/PaginationComponents";
-import { getDatabase, ref as dbRef, update, get } from "firebase/database";
+import { getDatabase, ref as dbRef, update, get, remove } from "firebase/database";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 
 const SmsOrdersAdmin = () => {
@@ -165,7 +165,7 @@ const SmsOrdersAdmin = () => {
                     )}
 
                     <Row className="mb-3">
-                        <Col md={8}>
+                        <Col>
                             <Form.Control
                                 type="text"
                                 placeholder="🔍 Search by company, phone, or email..."
@@ -173,9 +173,7 @@ const SmsOrdersAdmin = () => {
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
                         </Col>
-                        <Col md={4} className="text-end">
-                            <Button variant="primary">Add New Order</Button>
-                        </Col>
+                        
                     </Row>
 
                     <Table responsive bordered hover className="sms-orders-table text-center">

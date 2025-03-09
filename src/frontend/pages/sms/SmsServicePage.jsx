@@ -77,6 +77,7 @@ const SmsServiceModal = ({ show, handleClose }) => {
       totalAmount, // Store total amount in database
       searchKey,  // Store the generated search key
       timestamp: currentTime, // Store the current time in database
+      reportStatus: "Pending", // New key for report status
     };
 
     if (csvFile) {
