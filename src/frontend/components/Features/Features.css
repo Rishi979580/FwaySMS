@@ -1,38 +1,104 @@
 /* Features Section Styling */
 .feature-text {
-    font-size: 1.1rem !important;
-    font-weight: 500 !important;
-    color: #333 !important;
-  }
-  
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  flex: 1; /* Ensures text takes available space */
+  word-wrap: break-word;
+}
 
-  
+/* Section Title */
+h2 {
+  font-size: 1.8rem;
+  color: #007bff; /* Primary Theme Color */
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Description Paragraph */
+.text-muted {
+  font-size: 1rem;
+  color: #6c757d;
+  font-weight: 400;
+  text-align: center;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+/* Feature Item Styling */
+.d-flex {
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  align-items: center;
+  display: flex;
+  gap: 8px; /* Ensures proper spacing */
+}
+
+/* Hover Effect */
+.d-flex:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Tick Mark Icon Styling */
+.text-success {
+  font-size: 1.5rem;
+  min-width: 24px; /* Ensures consistent size */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   h2 {
-    font-size: 2rem !important;
-    color: #007bff !important; /* Primary Theme Color */
-    text-transform: uppercase !important;
+      font-size: 1.5rem;
   }
-  
+
   .text-muted {
-    font-size: 1rem !important;
-    color: #6c757d !important;
-    font-weight: 400 !important;
+      font-size: 0.95rem;
+      max-width: 90%;
   }
-  
+
   .d-flex {
-    background: white !important;
-    padding: 10px !important;
-    border-radius: 8px !important;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
-    transition: all 0.3s ease-in-out !important;
+      padding: 10px;
+      flex-direction: row; /* Ensure icon and text are aligned properly */
+      align-items: center;
+      gap: 10px;
   }
-  
-  .d-flex:hover {
-    transform: scale(1.05) !important;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15) !important;
+
+  .feature-text {
+      font-size: 0.95rem;
   }
-  
+
   .text-success {
-    font-size: 1.5rem !important;
+      font-size: 1.3rem;
+      min-width: 22px;
   }
-  
+}
+
+@media (max-width: 480px) {
+  h2 {
+      font-size: 1.3rem;
+  }
+
+  .text-muted {
+      font-size: 0.9rem;
+      max-width: 100%;
+  }
+
+  .d-flex {
+      padding: 8px;
+      flex-direction: row;
+      gap: 6px;
+  }
+
+  .feature-text {
+      font-size: 0.9rem;
+  }
+
+  .text-success {
+      font-size: 1.2rem;
+      min-width: 20px;
+  }
+}

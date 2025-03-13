@@ -1,34 +1,33 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaCheckCircle } from "react-icons/fa";
+import websiteData from "../../../assets/data"; // Import dynamic data
 import "./Features.css";
-const features = [
-  "No SMS Cutting",
-  "100% SMS Delivery Report",
-  "SMS Delivery within Seconds",
-  "Affordable Pricing Plans",
-  "We send SMS via the US route and multiple Indian operator routes.",
-  "No DLT Registration Required",
-  "Zero Extra Charges – No Hidden Fees",
-  "Save ₹5999/year on DLT Registration",
-  "Other Operators charge ₹5-7 per SMS without DLT",
-  "With FutureWaySMS, send messages at a fraction of the cost!"
-];
 
 const Features = () => {
+  // Extract the description dynamically from the features array
+  const descriptionFeature = websiteData.Features.find(
+    (feature) => feature.Feature === "Description"
+  );
+  const featuresList = websiteData.Features.filter(
+    (feature) => feature.Feature !== "Description"
+  );
+  const companyName = websiteData.Footer.find((item) => item.Field === "Company Name")?.Details || "FutureWaySMS";
+
   return (
     <Container className="py-5">
-      <h2 className="text-center fw-bold mb-4">Why Choose FutureWaySMS?</h2>
-      <p className="text-center text-muted">
-        Other operators charge ₹5-7 per SMS with mandatory DLT registration, which costs ₹5999 per year.  
-        With <strong>FutureWaySMS</strong>, you can send SMS instantly at a **much lower cost** without any hidden fees!
-      </p>
+      <h2 className="text-center fw-bold mb-4">Why Choose {companyName}?</h2>
+      {descriptionFeature && (
+        <p className="text-center text-muted">{descriptionFeature.Details}</p>
+      )}
       <Row className="g-3 mt-3">
-        {features.map((feature, index) => (
+        {featuresList.map((feature, index) => (
           <Col md={6} key={index}>
             <div className="d-flex align-items-center">
               <FaCheckCircle size={22} className="text-success me-2" />
-              <span className="feature-text">{feature}</span>
+              <span className="feature-text">
+                <strong>{feature.Feature}:</strong> {feature.Details}
+              </span>
             </div>
           </Col>
         ))}

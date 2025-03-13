@@ -4,6 +4,9 @@ import ChatBot from "react-simple-chatbot";
 import styled from "styled-components";
 import "./ChatbotCSS.css";
 import "./notification";
+import websiteData  from "../../../assets/data";
+
+
 
 const ChatWrapper = styled.div`
   .chat-with-us {
@@ -44,7 +47,7 @@ const ChatWrapper = styled.div`
     font-weight: bold;
     text-decoration: none;
   }
-  
+
   /* Floating Notification Styling */
   .floating-notification {
     position: fixed;
@@ -61,7 +64,7 @@ const ChatWrapper = styled.div`
     cursor: pointer;
     z-index: 999;
   }
-  
+
   .floating-notification.show {
     display: block;
     opacity: 1;
@@ -73,68 +76,46 @@ const ChatWrapper = styled.div`
   }
 `;
 
-const chatbotData = {
-  welcome: "👋 Hello! I'm FutureWay Assistant. How can I assist you today?",
-  mainMenu: [
-    { value: "services", label: "📌 Our Services", trigger: "services" },
-    { value: "contact", label: "📞 Contact Us", trigger: "contact" },
-    { value: "pricing", label: "💰 View Pricing", trigger: "pricing" },
-    { value: "speak_agent", label: "💬 Speak to an Agent", trigger: "speak_agent" },
-    { value: "exit", label: "❌ Exit Chat", trigger: "exit_chat" },
-  ],
-  services: [
-    { value: "bulk_sms", label: "📩 Bulk SMS", trigger: "service_info" },
-    { value: "whatsapp", label: "💬 WhatsApp Marketing", trigger: "service_info" },
-    { value: "email", label: "📧 Email Marketing", trigger: "service_info" },
-    { value: "pricing", label: "💰 Pricing Plans", trigger: "pricing" },
-    { value: "main_menu", label: "🔙 Back to Main Menu", trigger: "main_menu" },
-  ],
-  pricingMessage: "📢 Choose a Plan That Fits Your Needs:\n\n🔹 Free Plan - Ideal for basic usage.\n\n🔹 Starter Pack - Individuals and small businesses.\n\n🔹 Growth Pack - Growing businesses and marketers.\n\n🔹 Business Pack - Best for enterprises with high-volume messaging needs.",
-};
-
 const ChatBotComponent = () => {
   const [steps, setSteps] = useState([]);
 
   useEffect(() => {
-    const chatbotSteps = [
-      { id: "0", message: chatbotData.welcome, trigger: "main_menu" },
-      { id: "main_menu", options: chatbotData.mainMenu },
-      { id: "services", message: "Please select a service you're interested in.", trigger: "services_list" },
-      { id: "services_list", options: chatbotData.services },
-      { id: "service_info", message: "For more details, visit the link below:", trigger: "service_link" },
-      {
-        id: "service_link",
-        component: (
-          <div className="chat-option">
-            <a href="/enquiry" target="_blank" rel="noopener noreferrer" className="text-dark">
-              📌 Submit an Enquiry
-            </a>
-          </div>
-        ),
-        trigger: "main_menu",
-      },
-      { id: "pricing", message: chatbotData.pricingMessage, trigger: "pricing_link" },
-      {
-        id: "pricing_link",
-        component: (
-          <div className="chat-option">
-            <a href="/pricing" target="_blank" rel="noopener noreferrer" className="text-dark">
-              🔍 View Pricing Details
-            </a>
-          </div>
-        ),
-        trigger: "main_menu",
-      },
-      {
-        id: "contact",
-        message: "📧 Email: futureway.in@gmail.com\n📞 Phone: +91 9795298080\n📍 Location: Kaptanganj, UP, India",
-        trigger: "main_menu",
-      },
-      { id: "speak_agent", message: "⏳ Connecting you to an agent...", trigger: "agent_chat" },
-      { id: "agent_chat", component: <div>🔗 Live Chat Support (if available)</div>, trigger: "main_menu" },
-      { id: "exit_chat", message: "Thank you for chatting! Have a great day! 😊", end: true },
-    ];
-    setSteps(chatbotSteps);
+    if (websiteData.ChatBoat) {
+      const chatbotSteps = websiteData.ChatBoat.map((step) => {
+        if (step.Type === "message") {
+          return {
+            id: step.ID.toString(),
+            message: `${step.Icon} ${step.MessageLabelComponent}`,
+            trigger: step.TriggerNext_Step,
+          };
+        } else if (step.Type === "options") {
+          return {
+            id: step.ID.toString(),
+            options: step.MessageLabelComponent.split(", ").map((label, index) => ({
+              value: step.TriggerNext_Step.split(", ")[index],
+              label,
+              trigger: step.TriggerNext_Step.split(", ")[index],
+            })),
+          };
+        } else if (step.Type === "component") {
+          return {
+            id: step.ID.toString(),
+            component: (
+              <div className="chat-option">
+                <a href={step.URL_if_applicable} target="_blank" rel="noopener noreferrer" className="text-dark">
+                  {step.Icon} {step.MessageLabelComponent}
+                </a>
+              </div>
+            ),
+            trigger: step.TriggerNext_Step,
+          };
+        }
+        return null;
+      });
+
+      chatbotSteps.push({ id: "end", message: "Chat ended.", end: true }); // Ensure 'end' step exists
+      setSteps(chatbotSteps);
+    }
   }, []);
 
   // 🎯 Floating Notification Effect
@@ -184,11 +165,12 @@ const ChatBotComponent = () => {
         {steps.length > 0 && <ChatBot headerTitle={<div className="chat-header">💬 Chat with us</div>} steps={steps} {...config} className="chat-with-us" />}
       </ChatWrapper>
       <div id="floatingNotification" className="floating-notification">
-  Hi! I am Fway AI Agent, I will be assisting you Today. Lets Talk you!!.
-</div>
-
+        Hi! I am Fway AI Agent, I will be assisting you Today. Let's Talk!
+      </div>
     </ThemeProvider>
   );
 };
 
 export default ChatBotComponent;
+
+

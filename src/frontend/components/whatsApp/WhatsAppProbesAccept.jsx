@@ -14,6 +14,7 @@ const WhatsAppIcon = ({ phoneNumber, message }) => {
   );
 };
 
+
 WhatsAppIcon.propTypes = {
   phoneNumber: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,

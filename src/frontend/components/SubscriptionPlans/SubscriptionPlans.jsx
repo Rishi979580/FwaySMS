@@ -1,65 +1,8 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import websiteData from "../../../assets/data"; // Import dynamic data
+import SmsServiceModal from "../../pages/sms/SmsServicePage"; // Import the SMS Modal Component
 import "./SubscriptionPlans.css"; // Import styles
-import SmsServiceModal from "../../pages/sms/SmsServicePage"; // Import the SMS Modal Component 
-
-const plans = [
-
-  {
-    name: "Free Plan",
-    price: "₹0",
-    messages: "20 Messages",
-    features: [
-      "✅ Bulk SMS",
-      "❌ WhatsApp Messaging",
-      "❌ Email Campaigns",
-      "❌ Priority Support",
-      "❌ Automation"
-    ],
-    duration: "3 Days"
-  },
-
-
-  {
-    name: "Starter Pack",
-    price: "₹199",
-    messages: "250 Messages",
-    features: [
-      "✅ Bulk SMS",
-      "✅ WhatsApp Messaging",
-      "❌ Email Campaigns",
-      "❌ Priority Support",
-      "❌ Automation"
-    ],
-    duration: "7 Days"
-  },
-  {
-    name: "Growth Pack",
-    price: "₹499",
-    messages: "600 Messages",
-    features: [
-      "✅ Bulk SMS",
-      "✅ WhatsApp Messaging",
-      "✅ Email Campaigns",
-      "❌ Priority Support",
-      "❌ Automation"
-    ],
-    duration: "1 Month"
-  },
-  {
-    name: "Business Pack",
-    price: "₹999",
-    messages: "1500 Messages",
-    features: [
-      "✅ Bulk SMS",
-      "✅ WhatsApp Messaging",
-      "✅ Email Campaigns",
-      "✅ Priority Support",
-      "✅ Automation"
-    ],
-    duration: "3 Months"
-  },
-];
 
 const SubscriptionPlans = () => {
   const [showSMSModal, setShowSMSModal] = useState(false);
@@ -79,17 +22,19 @@ const SubscriptionPlans = () => {
     <Container className="subscription-container">
       <h2 className="text-center fw-bold mb-4">Choose Your Plan</h2>
       <Row className="g-4">
-        {plans.map((plan, index) => (
+        {websiteData.Pricing.map((plan, index) => (
           <Col md={6} lg={3} key={index}>
             <Card className="subscription-card">
               <Card.Body>
-                <Card.Title className="plan-title">{plan.name}</Card.Title>
-                <h4 className="plan-price">{plan.price}</h4>
-                <p className="plan-messages">{plan.messages} • {plan.duration}</p>
+                <Card.Title className="plan-title">{plan.Plan}</Card.Title>
+                <h4 className="plan-price">{plan.Price}</h4>
+                <p className="plan-messages">{plan.Messages} • {plan.Validity}</p>
                 <ul className="plan-features">
-                  {plan.features.map((feature, i) => (
-                    <li key={i} className="feature-item">{feature}</li>
-                  ))}
+                  <li>✅ Bulk SMS</li>
+                  <li>{plan.WhatsApp_Messaging} WhatsApp Messaging</li>
+                  <li>{plan.Email_Campaigns} Email Campaigns</li>
+                  <li>{plan.Priority_Support} Priority Support</li>
+                  <li>{plan.Automation} Automation</li>
                 </ul>
                 <Button 
                   variant="primary" 

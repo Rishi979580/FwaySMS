@@ -1,11 +1,10 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BiSolidMessageDetail } from "react-icons/bi";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Nav.css";
-import SmsServiceModal from "../../pages/sms/SmsServicePage"; // Import the SMS Modal Component
-import websiteData from "../../../../public/data"; // Adjust the import path according to your project structure
+import SmsServiceModal from "../../pages/sms/SmsServicePage"; // Import SMS Modal
+import websiteData from "../../../assets/data"; // Adjust path if needed
 
 const NavbarComponent = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
@@ -16,33 +15,27 @@ const NavbarComponent = () => {
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
   const closeNavMenu = () => setIsNavCollapsed(true);
 
-  // Assume the first Menu item is the logo and the rest are navigation links.
-  // Inside your component function, before the return:
+  // ✅ Extract brand name
+  const brandName = websiteData.Menu.find(item => item.Key === "Title")?.Value || "FutureWay";
+  const slogan = websiteData.Menu.find(item => item.Key === "Slogan")?.Value || "";
+  const logo = websiteData.Menu.find(item => item.Key === "Image")?.Value || "/default-logo.svg";
 
-  const logo = websiteData.Menu[0];
-  const titleParts = logo.Title.split(" ");
-  const firstPart = titleParts[0];
-  const secondPart = titleParts.slice(1).join(" ");
-  const slogan = websiteData.Menu[1].Route;  // Correctly accessing the slogan
+  // ✅ Extract menu items (filter out non-menu sections)
+  const navItems = websiteData.Menu.filter(item => item.Section === "Menu");
 
-
-
-  const navItems = websiteData.Menu.slice(2);
+  console.log("Brand:", brandName, "Slogan:", slogan, "Logo:", logo, "Menu:", navItems);
 
   return (
     <div className="nav-bar sticky-top bg-white shadow-sm">
       <nav className="navbar navbar-expand-lg navbar-light p-3">
         {/* Logo and Brand */}
-        <Link
-          to="/"
-          className="navbar-brand d-flex align-items-center"
-          onClick={closeNavMenu}
-        >
+        <Link to="/" className="navbar-brand d-flex align-items-center" onClick={closeNavMenu}>
           <div className="logo-container">
-            <img src={logo.Route} alt={logo.Title} className="logo" />
+            <img src={logo} alt={brandName} className="logo" />
             <div className="brand-text">
               <h1 className="logo-text">
-              <span className="futureway">{firstPart}</span> <span className="sms">{secondPart}</span>
+                <span className="futureway">{brandName.split(" ")[0]}</span>{" "}
+                <span className="sms">{brandName.split(" ").slice(1).join(" ")}</span>
               </h1>
               <p className="slogan">{slogan}</p>
             </div>
@@ -56,15 +49,17 @@ const NavbarComponent = () => {
 
         {/* Navigation Links */}
         <div className={`${isNavCollapsed ? "collapse" : ""} navbar-collapse`} id="navbarCollapse">
-          <ul className="navbar-nav mx-auto">
+         
+        <ul className="navbar-nav mx-auto">
             {navItems.map((item, index) => (
               <li key={index} className="nav-item">
-                <Link to={item.Route} className="nav-link" onClick={closeNavMenu}>
-                  {item.Title}
+                <Link to={item.Value !== "\"\"" ? item.Value : "/"} className="nav-link" onClick={closeNavMenu}>
+                  {item.Key.replace(/_/g, " ")} {/* Replaces underscores with spaces */}
                 </Link>
               </li>
             ))}
           </ul>
+
 
           {/* Buy SMS Button */}
           <button className="btn btn-primary sms-button" onClick={handleShowSMSModal}>

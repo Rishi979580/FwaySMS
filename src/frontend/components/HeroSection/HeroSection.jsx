@@ -1,38 +1,35 @@
 import React from "react";
 import { Container, Button, Row, Col } from "react-bootstrap";
 import "./HeroSection.css";
-const userCategories = [
-  "Small and Medium Businesses (SMBs)",
-  "E-commerce Platforms",
-  "Coaching Centers & School ",
-  "Hospitals & Clinics",
-  "Political Campaigns",
-  "Restaurants, PG , Real Estate",
+import websiteData from "../../../assets/data"; // Adjust the path as per your structure
 
-];
+// Extract Hero Section Data
+const heroData = websiteData.Hero;
 
-const feeCharge={
-highlight: "₹0.80/SMS",
-}
+// Find values by keys
+const heading = heroData.find(item => item.Key === "Heading")?.Value || "Default Heading";
+const subheading = heroData.find(item => item.Key === "Subheading")?.Value || "Default Subheading";
+const whoCanUseIt = heroData.find(item => item.Key === "Who_Can_Use_It")?.Value.split(";\n") || [];
+const ctaText = heroData.find(item => item.Key === "CTA")?.Value.split(";\n")[0] || "Get Started";
 
 const HeroSection = () => {
   return (
     <section className="hero-section text-center bg-primary text-white py-5">
       <Container>
-        <h1 className="fw-bold">Cheapest Bulk SMS Provider in India {feeCharge.highlight}</h1>
-        <p className="lead">We send SMS via the US route and multiple Indian operator routes.</p>
+        <h1 className="fw-bold">{heading}</h1>
+        <p className="lead">{subheading}</p>
         <Button variant="light" size="lg" className="fw-bold mt-3">
-          Get Started
+          {ctaText.replace("🔥 ", "")} {/* Remove emoji if needed */}
         </Button>
 
         {/* Who Can Use It Section */}
         <div className="who-can-use mt-5">
           <h2 className="fw-bold text-warning">Who Can Use It?</h2>
           <Row className="justify-content-center">
-            {userCategories.map((category, index) => (
+            {whoCanUseIt.map((category, index) => (
               <Col md={4} sm={6} key={index} className="mt-3">
                 <div className="category-box p-3 border rounded bg-white text-dark">
-                  {category}
+                  {category.replace("✅ ", "")} {/* Remove emoji if needed */}
                 </div>
               </Col>
             ))}

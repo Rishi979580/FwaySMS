@@ -5,9 +5,8 @@ import MessageTypes from "../components/MessageTypes/MessageTypes";
 import Features from "../components/Features/Features";
 import Footer from "../components/Footer/Footer";
 import ChatBotComponent from "../components/chatbot/Chatbot";
-import Banner from "../components/banner/Banner";
-import Banner2 from "../components/banner/Banner2";
-import jsonData from "../../../public/data"; // Import your JSON file
+import Banner from "../components/banner/Banner2";
+import Banner2 from "../components/banner/Banner1";
 
 const HomePage = () => {
   return (
