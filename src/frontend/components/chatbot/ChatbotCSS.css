@@ -146,47 +146,65 @@ a {
 
 .floating-notification {
   position: fixed;
-  bottom: 80px;
-  right: 80px;
-  background: #1f59ff; /* WhatsApp green */
+  bottom: 40px;
+  right: 70px;
+  background: #1f59ff; /* Blue color, change as needed */
   color: white;
-  padding: 12px 18px;
-  border-radius: 18px 18px 4px 18px; /* Tail shape like WhatsApp received message */
-  font-size: 14px;
+  padding: 14px 20px;
+  border-radius: 16px;
+  font-size: 15px;
   font-weight: 500;
   display: none;
-  transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+  transition: opacity 0.4s ease-in-out, transform 0.3s ease-in-out;
   cursor: pointer;
   z-index: 1000;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-  max-width: 250px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  max-width: 260px;
   word-wrap: break-word;
+  transform: translateY(10px) scale(0.95);
+  opacity: 0;
 }
 
+/* Show Notification with a bounce effect */
 .floating-notification.show {
   display: block;
   opacity: 1;
-  transform: scale(1);
+  transform: translateY(0) scale(1);
+  animation: bounceIn 0.5s ease-in-out;
 }
 
+/* Hide Notification */
 .floating-notification.hide {
   opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+  transform: translateY(10px) scale(0.95);
+  transition: opacity 0.4s ease-in-out, transform 0.3s ease-in-out;
 }
 
-/* Adding a small WhatsApp-style message tail */
+/* WhatsApp-style Tail */
 .floating-notification::after {
   content: "";
   position: absolute;
-  bottom: 0;
-  left: 10px;
+  bottom: -10px; /* Adjust position */
+  right: 15px; /* Position the tail */
   width: 0;
   height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 10px solid #1f59ff; /* WhatsApp green */
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 12px solid #1f59ff; /* Matches the background */
 }
 
-
+/* Bounce-in Animation */
+@keyframes bounceIn {
+  0% {
+    transform: translateY(20px) scale(0.9);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-5px) scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
 

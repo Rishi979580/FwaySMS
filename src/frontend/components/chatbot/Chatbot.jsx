@@ -49,7 +49,7 @@ const ChatWrapper = styled.div`
   .floating-notification {
     position: fixed;
     bottom: 80px;
-    right: 20px;
+    right: 10px;
     background: #ff5722;
     color: white;
     padding: 10px 15px;
@@ -172,7 +172,7 @@ const ChatBotComponent = () => {
       boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
       borderRadius: "50%",
       padding: "10px",
-      right: "20px",
+      right: "10px",
       bottom: "60px",
       zIndex: "999",
     },
@@ -184,7 +184,7 @@ const ChatBotComponent = () => {
         {steps.length > 0 && <ChatBot headerTitle={<div className="chat-header">💬 Chat with us</div>} steps={steps} {...config} className="chat-with-us" />}
       </ChatWrapper>
       <div id="floatingNotification" className="floating-notification">
-  Chat with Fway AI Agent.
+  Hi! I am Fway AI Agent, I will be assisting you Today. Lets Talk you!!.
 </div>
 
     </ThemeProvider>

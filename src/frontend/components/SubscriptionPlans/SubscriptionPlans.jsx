@@ -8,7 +8,7 @@ const plans = [
   {
     name: "Free Plan",
     price: "₹0",
-    messages: "50 Messages",
+    messages: "20 Messages",
     features: [
       "✅ Bulk SMS",
       "❌ WhatsApp Messaging",
@@ -23,7 +23,7 @@ const plans = [
   {
     name: "Starter Pack",
     price: "₹199",
-    messages: "500 Messages",
+    messages: "250 Messages",
     features: [
       "✅ Bulk SMS",
       "✅ WhatsApp Messaging",
@@ -36,7 +36,7 @@ const plans = [
   {
     name: "Growth Pack",
     price: "₹499",
-    messages: "2,000 Messages",
+    messages: "600 Messages",
     features: [
       "✅ Bulk SMS",
       "✅ WhatsApp Messaging",
@@ -49,7 +49,7 @@ const plans = [
   {
     name: "Business Pack",
     price: "₹999",
-    messages: "5,000 Messages",
+    messages: "1500 Messages",
     features: [
       "✅ Bulk SMS",
       "✅ WhatsApp Messaging",

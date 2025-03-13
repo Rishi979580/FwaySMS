@@ -1,10 +1,10 @@
 const smsData = {
 
   subscriptionPlans: [
-    { label: "Free Plan - 50 Messages - ₹0", value: "Free Plan - 50 Messages - ₹0", qrCode: "img/qr-code/Free-subscription.png" },
-    { label: "7 days - 500 Messages - ₹199", value: "7 days - 500 Messages - ₹199", qrCode: "img/qr-code/1-week-subscription.png" },
-    { label: "1 Month - 2000 Messages - ₹499", value: "1 Month - 2000 Messages - ₹499", qrCode: "img/qr-code/2-week-subscription.png" },
-    { label: "3 Month - 5000 Messages - ₹999", value: "3 Month - 5000 Messages - ₹999", qrCode: "img/qr-code/1-month-subscription.png" }
+    { label: "Free Plan - 20 Messages - ₹0", value: "Free Plan - 20 Messages - ₹0", qrCode: "img/qr-code/Free-subscription.png" },
+    { label: "7 days - 250 Messages - ₹199", value: "7 days - 250 Messages - ₹199", qrCode: "img/qr-code/1-week-subscription.png" },
+    { label: "1 Month - 650 Messages - ₹499", value: "1 Month - 650 Messages - ₹499", qrCode: "img/qr-code/2-week-subscription.png" },
+    { label: "3 Month - 1500 Messages - ₹999", value: "3 Month - 1500 Messages - ₹999", qrCode: "img/qr-code/1-month-subscription.png" }
   ],
   messageTypes: [
     { label: "Text Message", value: "Text Message" },

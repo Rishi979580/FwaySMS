@@ -5,7 +5,7 @@ import "./Banner2.css";
 // Data Object
 const bannerData = {
   title: "📢 Cheapest Bulk SMS Provider in India",
-  highlight: "₹0.25/SMS",
+  highlight: "₹0.80/SMS",
   features: [
     "Providing quality service",
     "100% SMS delivery guarantee",

@@ -7,7 +7,7 @@ import Footer from "../components/Footer/Footer";
 import ChatBotComponent from "../components/chatbot/Chatbot";
 import Banner from "../components/banner/Banner";
 import Banner2 from "../components/banner/Banner2";
-
+import jsonData from "../../../public/data"; // Import your JSON file
 
 const HomePage = () => {
   return (
