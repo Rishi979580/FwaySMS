@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaYoutube, FaWhatsapp } from "react-icons/fa";
 import websiteData from "../../../assets/data"; // Import dynamic data
+
 import "./Footer.css";
 
 const socialIcons = {
@@ -52,6 +53,8 @@ const Footer = () => {
             <a href={privacyPolicy} className="footer-link me-3">Privacy Policy</a>
             <a href={termsConditions} className="footer-link">Terms & Conditions</a>
           </Col>
+
+         
         </Row>
 
         {/* Centered Copyright Text */}

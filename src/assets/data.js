@@ -491,6 +491,93 @@ const websiteData=
       "URL": "https://twitter.com/fwayai",
       "Status": "Active"
     }
+  ],
+  "privacy policy": [
+    {
+      "Field": "Company Name",
+      "Details": "FutureWay SMS"
+    },
+    {
+      "Field": "Location",
+      "Details": "Kaptanganj, UP, India (274301)"
+    },
+    {
+      "Field": "Phone",
+      "Details": "91 97952 98080"
+    },
+    {
+      "Field": "Email",
+      "Details": "futureway.in@gmail.com"
+    },
+    
+    
+    {
+      "Field": "Policy Details",
+      "Details": "FutureWay SMS is committed to protecting user privacy. This policy explains data collection, usage, and security."
+    },
+    {
+      "Field": "Data Collection",
+      "Details": "We collect personal details like phone numbers, emails, and messages for service improvement."
+    },
+    {
+      "Field": "Usage",
+      "Details": "Data is used for communication, marketing, and customer support."
+    },
+    {
+      "Field": "Security",
+      "Details": "We employ industry-standard security measures to protect user data."
+    },
+    {
+      "Field": "Third-Party Sharing",
+      "Details": "We do not sell personal data but may share it with partners for service delivery."
+    },
+    {
+      "Field": "User Rights",
+      "Details": "Users can request data deletion, modification, or export anytime"
+    }
+  ],
+  "terms condtions": [
+    {
+      "Field": "Company Name",
+      "Details": "FutureWay SMS"
+    },
+    {
+      "Field": "Location",
+      "Details": "Kaptanganj, UP, India (274301)"
+    },
+    {
+      "Field": "Phone",
+      "Details": "9197952 98080"
+    },
+    {
+      "Field": "Email",
+      "Details": "futureway.in@gmail.com"
+    },
+    
+    {
+      "Field": "Service Usage",
+      "Details": "Users agree to use services ethically and lawfully."
+    },
+    {
+      "Field": "Payment Policy",
+      "Details": "Payments for premium plans are non-refundable."
+    },
+    {
+      "Field": "Account Responsibility",
+      "Details": "Users must maintain account security. Unauthorized access is prohibited."
+    },
+    {
+      "Field": "Messaging Limitations",
+      "Details": "Plans have message limits; exceeding them may require an upgrade."
+    },
+    {
+      "Field": "Prohibited Content",
+      "Details": "Spam, fraud, or illegal content via our services is strictly prohibited."
+    },
+    {
+      "Field": "Termination",
+      "Details": "We reserve the right to suspend accounts violating policies."
+    }
   ]
 }
 
