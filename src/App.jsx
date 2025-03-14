@@ -17,7 +17,7 @@ import NotFoundPage from "./frontend/pages/NotFoundPage";
 import ResetPasswordPage from "./frontend/pages/ResetPassword";
 import SubscriptionPlans from "./frontend/components/SubscriptionPlans/SubscriptionPlans";
 import { PrivacyPolicy, TermsConditions } from "./frontend/legal/legal";
-
+import PosterGenerator from "./frontend/components/posterGenertor/PosterGenertor"
 // Backend Pages
 import AdminLayout from "./backend/admin/AdminLayout";
 import AdminPageDashboard from "./backend/admin/pages/AdminPageDashboard";
@@ -51,6 +51,7 @@ function App() {
           <Route path="/check-report" element={<CheckReport />} />
           <Route path="/pricing" element={<SubscriptionPlans />} />
           <Route path="/enquiry" element={<EnquiryPage />} />
+          <Route path="/quotes" element={<PosterGenerator />} />
 
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-conditions" element={<TermsConditions />} />

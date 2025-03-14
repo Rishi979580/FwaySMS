@@ -2,18 +2,36 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, Modal, Row, Col, Image } from "react-bootstrap";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { getDatabase, ref as dbRef, push } from "firebase/database";
-import smsData from "./messageData"; // Import the JSON data
+import { BiCheckCircle, BiLogoWhatsapp } from "react-icons/bi"; // Import WhatsApp icon
+
+import websiteData from "../../../assets/data"; // Import centralized data from data.js
 
 const SmsServiceModal = ({ show, handleClose }) => {
+  // Prepare dynamic labels from "Buy SMS Form"
+  const formFields = websiteData["Buy SMS Form"].reduce((acc, item) => {
+    acc[item.Label] = item;
+    return acc;
+  }, {});
+
+  // For "Message Type", we use the Services array – skipping the first item if it's only a description.
+  const messageTypes = websiteData.Services.filter(
+    (s) => s.Service_Type !== "Description"
+  );
+
+  // For "Subscription Plan", we use the Pricing array
   const [csvFile, setCsvFile] = useState(null);
-  const [messageType, setMessageType] = useState(smsData.messageTypes[0].value);
-  const [subscriptionPlan, setSubscriptionPlan] = useState(smsData.subscriptionPlans[0].value);
-  const [dltRegistered, setDltRegistered] = useState(smsData.dltOptions[0].value);
+  const [messageType, setMessageType] = useState(messageTypes[0].Service_Type);
+  const [subscriptionPlan, setSubscriptionPlan] = useState(websiteData.Pricing[0].Plan);
+  // Parse DLT options from the form field string "[Yes, No]"
+  const dltOptions = formFields["DLT Registration"].Fields.replace(/[\[\]]/g, "")
+    .split(",")
+    .map((s) => s.trim());
+  const [dltRegistered, setDltRegistered] = useState(dltOptions[0]);
   const [customMessage, setCustomMessage] = useState("");
   const [hasPaid, setHasPaid] = useState("No");
-  const [totalAmount, setTotalAmount] = useState(0); // New state for total amount
-  const [showConfirmation, setShowConfirmation] = useState(false); // State for showing confirmation
-  const [currentTime, setCurrentTime] = useState(new Date().toLocaleString()); // New state for current time
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleString());
 
   const [userDetails, setUserDetails] = useState({
     companyName: "",
@@ -23,20 +41,18 @@ const SmsServiceModal = ({ show, handleClose }) => {
     paymentConfirmed: "No",
   });
 
+  // Update the total amount when the subscription plan changes.
   useEffect(() => {
-    // Find the selected plan
-    const selectedPlan = smsData.subscriptionPlans.find((plan) => plan.value === subscriptionPlan);
-
-    // Extract the price from the plan's value string
-    const amount = selectedPlan ? parseInt(selectedPlan.value.match(/₹(\d+)/)?.[1] || "0", 10) : 0;
-
+    const selectedPlan = websiteData.Pricing.find(
+      (plan) => plan.Plan === subscriptionPlan
+    );
+    const amount = selectedPlan ? parseInt(selectedPlan.Price.replace("₹", ""), 10) : 0;
     setTotalAmount(amount);
   }, [subscriptionPlan]);
 
   useEffect(() => {
     setCurrentTime(new Date().toLocaleString());
   }, [show]);
-
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -47,22 +63,18 @@ const SmsServiceModal = ({ show, handleClose }) => {
     }
   };
 
-  const handleInputChange = (e) =>
+  const handleInputChange = (e) => {
     setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async () => {
     if (!userDetails.email || !userDetails.phone) {
       alert("Please enter email and phone number!");
       return;
     }
-
-    // Extract username from email
+    // Create a unique search key from the email username and last 5 digits of phone
     const emailUsername = userDetails.email.split("@")[0];
-
-    // Extract last 5 digits of the phone number
     const phoneLastFive = userDetails.phone.slice(-5);
-
-    // Create a unique search key
     const searchKey = `${emailUsername}${phoneLastFive}`;
 
     const db = getDatabase();
@@ -74,37 +86,26 @@ const SmsServiceModal = ({ show, handleClose }) => {
       dltRegistered,
       userDetails,
       paymentStatus: hasPaid,
-      totalAmount, // Store total amount in database
-      searchKey,  // Store the generated search key
-      timestamp: currentTime, // Store the current time in database
-      reportStatus: "Pending", // New key for report status
+      totalAmount,
+      searchKey,
+      timestamp: currentTime,
+      reportStatus: "Pending",
     };
 
     if (csvFile) {
       const storage = getStorage();
       const timestamp = Date.now();
       const filePath = `uploads/${userDetails.phone}/${userDetails.email}/${timestamp}_${csvFile.name}`;
-
       const storageRef = ref(storage, filePath);
       uploadBytes(storageRef, csvFile).then(() => {
-        // Store the file path in Firebase Database
-        push(dbRef(db, "sms_orders"), {
-          ...smsOrderData,
-          filePath // Save filePath in the database 
-        });
-
-        setShowConfirmation(true); // Show confirmation
+        push(dbRef(db, "sms_orders"), { ...smsOrderData, filePath });
+        setShowConfirmation(true);
         resetForm();
         handleClose();
       });
-
-
-    }
-
-
-    else {
+    } else {
       push(dbRef(db, "sms_orders"), smsOrderData);
-      setShowConfirmation(true); // Show confirmation
+      setShowConfirmation(true);
       resetForm();
       handleClose();
     }
@@ -112,9 +113,9 @@ const SmsServiceModal = ({ show, handleClose }) => {
 
   const resetForm = () => {
     setCsvFile(null);
-    setMessageType(smsData.messageTypes[0].value);
-    setSubscriptionPlan(smsData.subscriptionPlans[0].value);
-    setDltRegistered(smsData.dltOptions[0].value);
+    setMessageType(messageTypes[0].Service_Type);
+    setSubscriptionPlan(websiteData.Pricing[0].Plan);
+    setDltRegistered(dltOptions[0]);
     setCustomMessage("");
     setHasPaid("No");
     setTotalAmount(0);
@@ -127,21 +128,28 @@ const SmsServiceModal = ({ show, handleClose }) => {
     });
   };
 
+
+
+
+  // Adjust the QR code image based on the selected subscription plan using data from data.js.
   const getQrCodeImage = () => {
-    switch (subscriptionPlan) {
-      case "1 Week - 300 Messages - ₹300":
-        return "img/qr-code/1-week-subscription.png";
-      case "2 Weeks - 600 Messages - ₹600":
-        return "img/qr-code/2-week-subscription.png";
-      case "1 Month - 1200 Messages - ₹1200":
-        return "img/qr-code/1-month-subscription.png";
-      default:
-        return "img/qr-code/Free-subscription.png";
+    let planKey = "Free Plan"; // default to Free image
+    if (subscriptionPlan.includes("Starter Pack")) {
+      planKey = "Starter Pack";
+    } else if (subscriptionPlan.includes("Growth Pack")) {
+      planKey = "Growth Pack";
+    } else if (subscriptionPlan.includes("Business Pack")) {
+      planKey = "Business Pack";
     }
+    const qrEntry = websiteData["Buy SMS Form"].find(
+      (entry) => entry.Label === planKey
+    );
+    return qrEntry ? qrEntry.Fields : "";
   };
 
   const downloadSampleCSV = () => {
-    const sampleData = "Name,Phone Number\nJohn Doe,9876543210\nJane Doe,9123456789";
+    const sampleData =
+      "Name,Phone Number\nJohn Doe,9876543210\nJane Doe,9123456789";
     const blob = new Blob([sampleData], { type: "text/csv" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
@@ -151,84 +159,188 @@ const SmsServiceModal = ({ show, handleClose }) => {
     document.body.removeChild(link);
   };
 
+  // Find the WhatsApp group link based on the Enquiry Page
+  const whatsappGroup = websiteData["Whatsapp Group"].find(
+    (group) => group.Pages === "Enquiry Page"
+  )?.WhatsApp_Link;
+
   return (
     <>
       <Modal show={show} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton className="shadow-sm border text-center">
-          <Modal.Title >Buy Messaging Subscription</Modal.Title>
+          <Modal.Title>Buy Messaging Subscription</Modal.Title>
         </Modal.Header>
         <Modal.Body className="border shadow-sm">
           <Form>
+            {/* User Details Section */}
             <Row className="mb-3">
               <Col md={6}>
-                <Form.Label>Company/Business Name <span className="text-danger">*</span></Form.Label>
-                <Form.Control type="text" name="companyName" placeholder="Company/Business Name" onChange={handleInputChange} />
+                <Form.Label>
+                  {formFields["Business Name"].Label}{" "}
+                  <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="companyName"
+                  placeholder={formFields["Business Name"].Label}
+                  onChange={handleInputChange}
+                />
               </Col>
               <Col md={6}>
-                <Form.Label>Phone Number <span className="text-danger">*</span></Form.Label>
-                <Form.Control type="text" name="phone" placeholder="Phone Number" onChange={handleInputChange} />
+                <Form.Label>
+                  {formFields["Phone Number"].Label}{" "}
+                  <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="phone"
+                  placeholder={formFields["Phone Number"].Label}
+                  onChange={handleInputChange}
+                />
               </Col>
             </Row>
             <Row className="mb-3">
               <Col md={6}>
-                <Form.Label>Email Address <span className="text-danger">*</span></Form.Label>
-                <Form.Control type="email" name="email" placeholder="Email Address" onChange={handleInputChange} />
+                <Form.Label>
+                  {formFields["Email Address"].Label}{" "}
+                  <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="email"
+                  name="email"
+                  placeholder={formFields["Email Address"].Label}
+                  onChange={handleInputChange}
+                />
               </Col>
               <Col md={6}>
-                <Form.Label>Full Address <span className="text-danger">*</span></Form.Label>
-                <Form.Control type="text" name="address" placeholder="Full Address" onChange={handleInputChange} />
+                <Form.Label>
+                  {formFields["Full Address"].Label}{" "}
+                  <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="address"
+                  placeholder={formFields["Full Address"].Label}
+                  onChange={handleInputChange}
+                />
               </Col>
             </Row>
 
-            <Form.Label>Subscription Plan <span className="text-danger">*</span></Form.Label>
-            <Form.Select className="mb-3" value={subscriptionPlan} onChange={(e) => setSubscriptionPlan(e.target.value)}>
-              {smsData.subscriptionPlans.map((plan, index) => (
-                <option key={index} value={plan.value}>
-                  {plan.label}
+            {/* Subscription and Message Options */}
+            <Form.Label>
+              {formFields["Subscription Plan"].Label}{" "}
+              <span className="text-danger">*</span>
+            </Form.Label>
+            <Form.Select
+              className="mb-3"
+              value={subscriptionPlan}
+              onChange={(e) => setSubscriptionPlan(e.target.value)}
+            >
+              {websiteData.Pricing.map((plan, index) => (
+                <option key={index} value={plan.Plan}>
+                  {`${plan.Plan} - ${plan.Messages} - ${plan.Price}`}
                 </option>
               ))}
             </Form.Select>
 
-            <Form.Label>Message Type <span className="text-danger">*</span></Form.Label>
-            <Form.Select className="mb-3" value={messageType} onChange={(e) => setMessageType(e.target.value)}>
-              {smsData.messageTypes.map((type, index) => (
-                <option key={index} value={type.value}>
-                  {type.label}
+            <Form.Label>
+              {formFields["Message Type"].Label}{" "}
+              <span className="text-danger">*</span>
+            </Form.Label>
+            <Form.Select
+              className="mb-3"
+              value={messageType}
+              onChange={(e) => setMessageType(e.target.value)}
+            >
+              {messageTypes.map((type, index) => (
+                <option key={index} value={type.Service_Type}>
+                  {type.Service_Type}
                 </option>
               ))}
             </Form.Select>
 
-            <Form.Label>DLT Registration <span className="text-danger">*</span></Form.Label>
-            <Form.Select className="mb-3" value={dltRegistered} onChange={(e) => setDltRegistered(e.target.value)}>
-              {smsData.dltOptions.map((option, index) => (
-                <option key={index} value={option.value}>
-                  {option.label}
+            <Form.Label>
+              {formFields["DLT Registration"].Label}{" "}
+              <span className="text-danger">*</span>
+            </Form.Label>
+            <Form.Select
+              className="mb-3"
+              value={dltRegistered}
+              onChange={(e) => setDltRegistered(e.target.value)}
+            >
+              {dltOptions.map((option, index) => (
+                <option key={index} value={option}>
+                  {option}
                 </option>
               ))}
             </Form.Select>
 
-            <Form.Label> Message Details <span className="text-danger">*</span></Form.Label>
-            <Form.Control as="textarea" rows={2} value={customMessage} onChange={(e) => setCustomMessage(e.target.value)} placeholder="Enter your custom message..." className="mb-3" />
+            <Form.Label>
+              {formFields["Message Details"].Label}{" "}
+              <span className="text-danger">*</span>
+            </Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={2}
+              value={customMessage}
+              onChange={(e) => setCustomMessage(e.target.value)}
+              placeholder="Enter your custom message..."
+              className="mb-3"
+            />
 
+            {/* CSV File Upload */}
             <Button variant="info" className="mb-2" onClick={downloadSampleCSV}>
               Download Sample CSV
             </Button>
-            <Form.Control type="file" accept=".csv" onChange={handleFileUpload} className="mb-2" />
-            {csvFile && <p className="text-success fw-bold">Uploaded: {csvFile.name}</p>}
+            <Form.Control
+              type="file"
+              accept=".csv"
+              onChange={handleFileUpload}
+              className="mb-2"
+            />
+            {csvFile && (
+              <p className="text-success fw-bold">Uploaded: {csvFile.name}</p>
+            )}
 
-            <p className="text-center text-primary">{smsData.paymentDetails.additionalNote}</p>
+            {/* Payment Method and QR Code Section */}
+            <p className="text-center text-primary">
+              {formFields["Payment Method"].Fields}
+            </p>
 
-            <Image src={getQrCodeImage()} alt="QR Code" width={200} className="d-block mx-auto my-3 border p-2" />
-            <h5 className="text-center text-success text-bold" >Total Amount: ₹{totalAmount}</h5> {/* Display Total Amount */}
+            <Image
+              src={getQrCodeImage()}
+              alt="QR Code"
+              width={200}
+              className="d-block mx-auto my-3 border p-2"
+            />
+            <h5 className="text-center text-success text-bold">
+              Total Amount: ₹{totalAmount}
+            </h5>
 
-            <p className="text-center">{smsData.paymentDetails.note}</p>
 
+            {/* Payment Confirmation */}
             <h5>Have you paid Subscription charge?</h5>
-            <Form.Check type="radio" label="Yes" name="paymentConfirmed" value="Yes" checked={hasPaid === "Yes"} onChange={() => setHasPaid("Yes")} />
-            <Form.Check type="radio" label="No" name="paymentConfirmed" value="No" checked={hasPaid === "No"} onChange={() => setHasPaid("No")} />
+            <Form.Check
+              type="radio"
+              label="Yes"
+              name="paymentConfirmed"
+              value="Yes"
+              checked={hasPaid === "Yes"}
+              onChange={() => setHasPaid("Yes")}
+            />
+            <Form.Check
+              type="radio"
+              label="No"
+              name="paymentConfirmed"
+              value="No"
+              checked={hasPaid === "No"}
+              onChange={() => setHasPaid("No")}
+            />
 
-            <p className="text-danger fw-bold">{smsData.note}</p>
           </Form>
+          <span className="text-left text-danger text-bold">
+            {formFields["Verification Note"].Fields}
+          </span>
         </Modal.Body>
         <Modal.Footer className="border shadow-sm">
           <Button variant="secondary" onClick={handleClose}>
@@ -241,13 +353,41 @@ const SmsServiceModal = ({ show, handleClose }) => {
       </Modal>
 
       {showConfirmation && (
-        <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>Confirmation</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p>Your request has been submitted successfully!</p>
+        <Modal
+          show={showConfirmation}
+          onHide={() => setShowConfirmation(false)}
+          centered
+        >
+         <Modal.Header closeButton className="d-flex align-items-center">
+          <h3 className="text-success fw-bold me-2">Success</h3>
+          <BiCheckCircle size={32} className="text-success" />
+        </Modal.Header>
+
+
+          <Modal.Body className="text-center">
+            <p className="fs-5">
+              Thank you, <strong>{userDetails.companyName}</strong>!
+            </p>
+            <p className="fs-6">
+              Your Subscription for <strong>{subscriptionPlan}</strong> has been submitted successfully.
+            </p>
+
+            {whatsappGroup && (
+              <div className="whatsapp-container">
+                <Button
+                  href={whatsappGroup}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="whatsapp-button"
+                >
+                  Join WhatsApp Group
+                </Button>
+              </div>
+            )}
+
           </Modal.Body>
+
+
           <Modal.Footer>
             <Button variant="primary" onClick={() => setShowConfirmation(false)}>
               Close

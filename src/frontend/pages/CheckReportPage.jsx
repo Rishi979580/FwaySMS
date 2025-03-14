@@ -3,6 +3,7 @@ import { Container, Table, Button, Form, Alert, Row, Col } from "react-bootstrap
 import { FaSearch, FaRedo, FaDownload } from "react-icons/fa";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { getStorage, ref as storageRef, getDownloadURL } from "firebase/storage";
+import websiteData from "../../assets/data"; // Import dynamic text data
 
 const CheckReport = () => {
     const [phone, setPhone] = useState("");
@@ -48,7 +49,7 @@ const CheckReport = () => {
 
     const handleSearch = () => {
         if (!phone || !email) {
-            setError("⚠️ Please enter both Phone Number and Email ID.");
+            setError(websiteData["Check Report"].find(item => item.Key === "ValidationMessage").Value);
             return;
         }
         setError("");
@@ -75,7 +76,9 @@ const CheckReport = () => {
 
     return (
         <Container className="py-4">
-            <h2 className="text-center mb-4 fw-bold text-dark">🔍 Check Report</h2>
+            <h2 className="text-center mb-4 fw-bold text-dark">
+                {websiteData["Check Report"].find(item => item.Key === "Heading").Value}
+            </h2>
 
             {error && (
                 <Alert variant="danger" onClose={() => setError("")} dismissible>
@@ -88,7 +91,7 @@ const CheckReport = () => {
                 <Col xs={12} md={5}>
                     <Form.Control
                         type="text"
-                        placeholder="Enter Phone Number..."
+                        placeholder={websiteData["Check Report"].find(item => item.Key === "Phone").Value}
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         className="shadow-sm"
@@ -97,7 +100,7 @@ const CheckReport = () => {
                 <Col xs={12} md={5}>
                     <Form.Control
                         type="text"
-                        placeholder="Enter Email ID..."
+                        placeholder={websiteData["Check Report"].find(item => item.Key === "Email").Value}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="shadow-sm"
@@ -121,14 +124,9 @@ const CheckReport = () => {
                     <Table bordered hover className="shadow-sm text-center">
                         <thead className="table-dark">
                             <tr>
-                                <th>#</th>
-                                <th>Company</th>
-                                <th>Phone</th>
-                                <th>Email</th>
-                                <th>Message</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Report</th>
+                                {websiteData["Check Report"].slice(4, 12).map((header, index) => (
+                                    <th key={index}>{header.Value}</th>
+                                ))}
                             </tr>
                         </thead>
                         <tbody>
@@ -140,7 +138,8 @@ const CheckReport = () => {
                                     <td>{report.userDetails.email}</td>
                                     <td>{report.messageType}</td>
                                     <td>{report.reportStatus}</td>
-                                    <td>{report.timestamp || "N/A"}</td> {/* Display Timestamp */}
+                                    <td>{report.timestamp || "N/A"}</td>
+                                    
                                     <td>
                                         {report.reportStatus === "Completed" && report.fileUrl ? (
                                             <a href={report.fileUrl} target="_blank" rel="noopener noreferrer">
@@ -152,6 +151,8 @@ const CheckReport = () => {
                                             <span className="text-danger">No File</span>
                                         )}
                                     </td>
+
+
                                 </tr>
                             ))}
                         </tbody>
@@ -159,9 +160,15 @@ const CheckReport = () => {
                 </div>
             ) : (
                 <div className="text-center">
-                    <p className="text-muted">Please enter a valid phone number and email ID.</p>
-                    <p className="text-primary">📍 Bulk messages for prepaid customers are approved within 1-2 hours.</p>
-                    <p className="text-primary">📍 Bulk messages for non-prepaid customers may take up to 24 working hours.</p>
+                    <p className="text-muted">
+                        {websiteData["Check Report"].find(item => item.Key === "ValidationMessage").Value}
+                    </p>
+                    <p className="text-primary">
+                        {websiteData["Check Report"].find(item => item.Key === "Prepaid").Value}
+                    </p>
+                    <p className="text-primary">
+                        {websiteData["Check Report"].find(item => item.Key === "NonPrepaid").Value}
+                    </p>
                 </div>
             )}
         </Container>

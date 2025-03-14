@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import { BiMessageSquareDetail, BiLogoWhatsapp, BiMailSend } from "react-icons/bi";
+import { BiMessageSquareDetail, BiLogoWhatsapp, BiMailSend, BiImage, BiVideo, BiTimeFive } from "react-icons/bi";
 import websiteData from "../../../assets/data"; // Import dynamic data
 import "./MessageTypes.css"; // Import custom styles
 
@@ -8,7 +8,12 @@ import "./MessageTypes.css"; // Import custom styles
 const iconMapping = {
   "Text SMS": <BiMessageSquareDetail size={50} className="text-primary" />,
   "WhatsApp Messaging": <BiLogoWhatsapp size={50} className="text-success" />,
-  "Email Campaigns": <BiMailSend size={50} className="text-danger" />
+  "Email Campaigns": <BiMailSend size={50} className="text-danger" />,
+  "Brand Promotion – Social Media Posts": <BiImage size={50} className="text-primary" />,  
+  "Brand Promotion – Short Videos": <BiVideo size={50} className="text-success" />,  
+  "Automated – Social Media Posting": <BiTimeFive size={50} className="text-warning" />,  
+
+
 };
 
 const MessageTypes = () => {
@@ -19,7 +24,7 @@ const MessageTypes = () => {
 
   return (
     <Container className="py-5 message-types-container">
-      <h2 className="text-center fw-bold mb-3 section-title">Message Types</h2>
+      <h2 className="text-center fw-bold mb-3 section-title">Our Services</h2>
       <p className="text-center text-muted section-description">
         {generalDescription}
       </p>

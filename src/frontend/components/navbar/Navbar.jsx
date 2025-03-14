@@ -5,6 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Nav.css";
 import SmsServiceModal from "../../pages/sms/SmsServicePage"; // Import SMS Modal
 import websiteData from "../../../assets/data"; // Adjust path if needed
+import PosterGenerator from "../posterGenertor/PosterGenertor"
+
 
 const NavbarComponent = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
@@ -12,6 +14,8 @@ const NavbarComponent = () => {
 
   const handleShowSMSModal = () => setShowSMSModal(true);
   const handleCloseSMSModal = () => setShowSMSModal(false);
+
+  
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
   const closeNavMenu = () => setIsNavCollapsed(true);
 
@@ -23,7 +27,6 @@ const NavbarComponent = () => {
   // ✅ Extract menu items (filter out non-menu sections)
   const navItems = websiteData.Menu.filter(item => item.Section === "Menu");
 
-  console.log("Brand:", brandName, "Slogan:", slogan, "Logo:", logo, "Menu:", navItems);
 
   return (
     <div className="nav-bar sticky-top bg-white shadow-sm">
@@ -57,6 +60,7 @@ const NavbarComponent = () => {
                   {item.Key.replace(/_/g, " ")} {/* Replaces underscores with spaces */}
                 </Link>
               </li>
+                
             ))}
           </ul>
 

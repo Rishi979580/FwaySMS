@@ -1,5 +1,6 @@
 const websiteData=
 
+
 {
   "Menu": [
     {
@@ -20,7 +21,7 @@ const websiteData=
     {
       "Section": "Menu",
       "Key": "Home",
-      "Value": "\"\""
+      "Value": ""
     },
     {
       "Section": "Menu",
@@ -36,8 +37,167 @@ const websiteData=
       "Section": "Menu",
       "Key": "Enquiry",
       "Value": "/enquiry"
+    },
+    {
+      "Section": "Menu",
+      "Key": "Generate Quote",
+      "Value": "/quotes"
     }
   ],
+
+  "Quotes": [
+    {
+      "Category": "Education",
+      "Content": "शिक्षा वह शक्ति है जो जीवन को नया आयाम देती है।",
+      "Author": "महात्मा गांधी",
+      "Status": "Active"
+    },
+    {
+      "Category": "Education",
+      "Content": "शिक्षा से अंधकार दूर होता है और ज्ञान का प्रकाश फैलता है।",
+      "Author": "अरस्तू",
+      "Status": "Active"
+    },
+    {
+      "Category": "Education",
+      "Content": "अच्छी शिक्षा से समाज में परिवर्तन संभव है।",
+      "Author": "अनाम",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Education",
+      "Content": "शिक्षा सफलता की नींव है।",
+      "Author": "अनाम",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Education",
+      "Content": "ज्ञान का सागर, शिक्षा है – इसका प्रत्येक बूंद अनमोल है।",
+      "Author": "अनाम",
+      "Status": "Active"
+    },
+    {
+      "Category": "Motivation",
+      "Content": "उम्मीद की किरण कभी बुझने न दें।",
+      "Author": "अनाम",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Motivation",
+      "Content": "कठिनाइयों से मत डरें, उन्हें अपने पथ पर आने दें।",
+      "Author": "अनाम",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Motivation",
+      "Content": "आत्मविश्वास ही सफलता की कुंजी है।",
+      "Author": "अनाम",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Motivation",
+      "Content": "जीवन में कभी हार मत मानो; निरंतर प्रयास करते रहो।",
+      "Author": "अनाम",
+      "Status": "Active"
+    },
+    {
+      "Category": "Motivation",
+      "Content": "सफलता का रास्ता लगातार मेहनत और लगन से तय होता है।",
+      "Author": "अनाम",
+      "Status": "Active"
+    },
+    {
+      "Category": "Career",
+      "Content": "अपने करियर को सही दिशा में ले जाना ही सफलता है।",
+      "Author": "कॉन्फ्यूशियस",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Career",
+      "Content": "करियर में उन्नति के लिए निरंतर प्रयास करना आवश्यक है।",
+      "Author": "अनाम",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Career",
+      "Content": "सफलता पाने के लिए अपने करियर में जोखिम उठाएं।",
+      "Author": "अनाम",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Career",
+      "Content": "अपने पेशेवर जीवन में सुधार के लिए हमेशा सीखते रहें।",
+      "Author": "अनाम",
+      "Status": "Active"
+    },
+    {
+      "Category": "Career",
+      "Content": "करियर की सफलता आपके निरंतर प्रयासों और सीखने की चाह का परिणाम है।",
+      "Author": "अनाम",
+      "Status": "Active"
+    },
+    {
+      "Category": "Business",
+      "Content": "व्यापार में सफलता पाने के लिए जोखिम लेना जरूरी है।",
+      "Author": "रिचर्ड ब्रैनसन",
+      "Status": "Active"
+    },
+    {
+      "Category": "Business",
+      "Content": "ग्राहक संतुष्टि ही व्यापार की असली कुंजी है।",
+      "Author": "पीटर ड्रकर",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Business",
+      "Content": "सफल व्यापार में नवाचार और धैर्य की आवश्यकता होती है।",
+      "Author": "अनाम",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Business",
+      "Content": "व्यापार का रहस्य है ग्राहक के विश्वास में।",
+      "Author": "अनाम",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Business",
+      "Content": "अपने व्यापार में सुधार के लिए लगातार प्रयास करें।",
+      "Author": "अनाम",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Health",
+      "Content": "स्वास्थ्य ही असली धन है।",
+      "Author": "अनाम",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Health",
+      "Content": "स्वस्थ शरीर, स्वस्थ मन।",
+      "Author": "अनाम",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Health",
+      "Content": "अपने स्वास्थ्य का ध्यान रखना, जीवन की सबसे बड़ी पूंजी है।",
+      "Author": "अनाम",
+      "Status": "Disable"
+    },
+    {
+      "Category": "Health",
+      "Content": "संतुलित आहार और नियमित व्यायाम से शरीर स्वस्थ रहता है।",
+      "Author": "अनाम",
+      "Status": "Active"
+    },
+    {
+      "Category": "Health",
+      "Content": "स्वास्थ्य के प्रति जागरूकता ही जीवन को खुशहाल बनाती है।",
+      "Author": "अनाम",
+      "Status": "Active"
+    }
+  ],
+  
   "Hero": [
     {
       "Section": "Hero",
@@ -57,7 +217,7 @@ const websiteData=
     {
       "Section": "Hero",
       "Key": "CTA",
-      "Value": "🔥 Get Started Now;\n📞 Contact Us: +91 9795298080;\n📩 Email: futureway.in@gmail.com"
+      "Value": "🔥 Get Started Now;\n📞 Contact Us +91 9795298080;\n📩 Email futureway.in@gmail.com"
     }
   ],
   "Banner": [
@@ -87,7 +247,7 @@ const websiteData=
     },
     {
       "Key": "Trial_Description",
-      "Value": "Get 50 Free SMS instantly. No hidden charges, no setup fees! Try it now and experience seamless messaging."
+      "Value": "Get 10 Free SMS instantly. No hidden charges, no setup fees! Try it now and experience seamless messaging."
     },
     {
       "Key": "Trial_Button_Text",
@@ -98,7 +258,7 @@ const websiteData=
     {
       "Plan": "Free Plan",
       "Price": "₹0",
-      "Messages": "20 Messages",
+      "Messages": "10 Messages",
       "Validity": "3 Days",
       "WhatsApp_Messaging": "❌",
       "Email_Campaigns": "❌",
@@ -139,7 +299,7 @@ const websiteData=
   "Services": [
     {
       "Service_Type": "Description",
-      "Description": "Choose from multiple communication channels to effectively connect with your audience. Whether it’s quick SMS alerts, engaging WhatsApp messages, or detailed email campaigns, we've got you covered!"
+      "Description": "Connect with your audience via SMS, WhatsApp, and email. Reach users instantly with bulk SMS, engage them with WhatsApp messages, and run professional email campaigns. Boost brand visibility with social media posts, short videos, and automated posting for consistent engagement. 🚀"
     },
     {
       "Service_Type": "Bulk Text SMS",
@@ -152,6 +312,18 @@ const websiteData=
     {
       "Service_Type": "Email Campaigns",
       "Description": "Send professional emails for marketing campaigns, newsletters, and customer engagement."
+    },
+    {
+      "Service_Type": "Brand Promotion – Social Media Posts",
+      "Description": "Create engaging social media post images with compelling content to boost brand visibility."
+    },
+    {
+      "Service_Type": "Brand Promotion – Short Videos",
+      "Description": "Produce captivating short videos for social media marketing and audience engagement."
+    },
+    {
+      "Service_Type": "Automated – Social Media Posting",
+      "Description": "Schedule and publish social media posts automatically across multiple platforms, ensuring consistent engagement and time-saving marketing."
     }
   ],
   "Features": [
@@ -271,7 +443,7 @@ const websiteData=
       "ID": "bulk_sms",
       "Type": "message",
       "Icon": "📩",
-      "MessageLabelComponent": "For more details, visit the link below:",
+      "MessageLabelComponent": "For more details, visit the link below",
       "TriggerNext_Step": "service_link",
       "URL_if_applicable": ""
     },
@@ -279,7 +451,7 @@ const websiteData=
       "ID": "whatsapp",
       "Type": "message",
       "Icon": "💬",
-      "MessageLabelComponent": "For more details, visit the link below:",
+      "MessageLabelComponent": "For more details, visit the link below",
       "TriggerNext_Step": "service_link",
       "URL_if_applicable": ""
     },
@@ -287,7 +459,7 @@ const websiteData=
       "ID": "email",
       "Type": "message",
       "Icon": "📧",
-      "MessageLabelComponent": "For more details, visit the link below:",
+      "MessageLabelComponent": "For more details, visit the link below",
       "TriggerNext_Step": "service_link",
       "URL_if_applicable": ""
     },
@@ -303,7 +475,7 @@ const websiteData=
       "ID": "pricing",
       "Type": "message",
       "Icon": "💰",
-      "MessageLabelComponent": "Choose a Plan That Fits Your Needs: ...",
+      "MessageLabelComponent": "Choose a Plan That Fits Your Needs ...",
       "TriggerNext_Step": "pricing_link",
       "URL_if_applicable": ""
     },
@@ -319,7 +491,7 @@ const websiteData=
       "ID": "contact",
       "Type": "message",
       "Icon": "📞",
-      "MessageLabelComponent": "📧 Email: futureway.in@gmail.com ,📞 Phone: +91 9795298080",
+      "MessageLabelComponent": "📧 Email futureway.in@gmail.com ,📞 Phone +91 9795298080",
       "TriggerNext_Step": "main_menu",
       "URL_if_applicable": ""
     },
@@ -375,7 +547,7 @@ const websiteData=
     },
     {
       "Label": "DLT Registration",
-      "Fields": "Yes or No"
+      "Fields": "[Yes, No]"
     },
     {
       "Label": "Message Details",
@@ -383,68 +555,96 @@ const websiteData=
     },
     {
       "Label": "Total Amount",
-      "Fields": "₹0 or selected plan price"
+      "Fields": "Selected plan price"
     },
     {
       "Label": "Payment Method",
-      "Fields": "QR Code or UPI (futureway.in@okhdfcbank)"
+      "Fields": "QR Code or UPI (futureway.in-1@okhdfcbank)"
     },
     {
       "Label": "Payment Confirmation",
-      "Fields": "Yes or No"
+      "Fields": "[Yes, No]"
     },
     {
       "Label": "Verification Note",
-      "Fields": "Manual verification for spam or fraud, then auto-send"
+      "Fields": "Messages are manually checked for spam/fraud before sending. Reports are available in Report Menu Check or via Email/WhatsApp."
+    },
+    {
+      "Label": "Starter Pack",
+      "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FStarter%20Pack.jpg?alt=media&token=9b7b4076-46b4-4ab7-988d-302a59db0514"
+    },
+    {
+      "Label": "Growth Pack",
+      "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FGrowth%20Pack.jpg?alt=media&token=ccc8ba9c-dd22-4b80-a8f8-6e1b6c6287f6"
+    },
+    {
+      "Label": "Business Pack",
+      "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FBusiness%20Pack.jpg?alt=media&token=ff2f35ae-b9d8-4ccf-9adf-2c28832ff62d"
+    },
+    {
+      "Label": "Free Plan",
+      "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FFree%20Plan.jpg?alt=media&token=805aedeb-86c1-4a72-b593-24962fb3f71e"
     }
   ],
   "Check Report": [
     {
-      "Key": "Check_Report.Heading",
+      "Key": "Heading",
       "Value": "🔍 Check Report"
     },
     {
-      "Key": "Check_Report.Fields.1",
+      "Key": "Phone",
       "Value": "📱 Enter Phone Number..."
     },
     {
-      "Key": "Check_Report.Fields.2",
+      "Key": "Email",
       "Value": "📧 Enter Email ID..."
     },
     {
-      "Key": "Check_Report.Validation_Message",
+      "Key": "ValidationMessage",
       "Value": "⚠️ Please enter a valid phone number and email ID."
     },
     {
-      "Key": "Check_Report.Result_Table.1",
-      "Value": "# Company"
+      "Key": "Sr",
+      "Value": "#"
     },
     {
-      "Key": "Check_Report.Result_Table.2",
-      "Value": "Phone Email"
+      "Key": "Company",
+      "Value": "Company"
     },
     {
-      "Key": "Check_Report.Result_Table.3",
-      "Value": "Message Status"
+      "Key": "Phone",
+      "Value": "Phone"
     },
     {
-      "Key": "Check_Report.Result_Table.4",
+      "Key": "Email",
+      "Value": "Email"
+    },
+    {
+      "Key": "Message",
+      "Value": "Message"
+    },
+    {
+      "Key": "Status",
+      "Value": "Status"
+    },
+    {
+      "Key": "Date",
       "Value": "Date"
     },
     {
-      "Key": "Check_Report.Result_Table.5",
+      "Key": "Report",
       "Value": "Report"
     },
     {
-      "Key": "Check_Report.Approval_Time.1",
+      "Key": "Prepaid",
       "Value": "📍 Bulk messages for prepaid customers are approved within 1-2 hours."
     },
     {
-      "Key": "Check_Report.Approval_Time.2",
+      "Key": "NonPrepaid",
       "Value": "📍 Bulk messages for non-prepaid customers may take up to 24 working hours."
     },
     {
-      "Key": "Check_Report.CTA",
+      "Key": "CTA",
       "Value": "✅ Check Now (Button)"
     }
   ],
@@ -453,43 +653,55 @@ const websiteData=
       "ID": 1,
       "Platform": "YouTube",
       "Profile_Name": "FutureWay",
-      "URL": "https://youtube.com/fway",
+      "URL": "https//youtube.com/fway",
       "Status": "Active"
     },
     {
       "ID": 2,
       "Platform": "Facebook",
       "Profile_Name": "FutureWay",
-      "URL": "https://facebook.com/fway",
+      "URL": "https//facebook.com/fway",
       "Status": "Active"
     },
     {
       "ID": 3,
       "Platform": "Instagram",
       "Profile_Name": "FutureWay",
-      "URL": "https://instagram.com/fway",
+      "URL": "https//instagram.com/fway",
       "Status": "Active"
     },
     {
       "ID": 4,
       "Platform": "Whatsapp",
       "Profile_Name": "FutureWay",
-      "URL": "https://api.whatsapp.com/send?phone=+919795298080&text=Hi",
+      "URL": "https//api.whatsapp.com/send?phone=+919795298080&text=Hi",
       "Status": "Active"
     },
     {
       "ID": 5,
       "Platform": "LinkedIn",
       "Profile_Name": "FutureWay",
-      "URL": "https://linkedin.com/fway",
-      "Status": "Active"
+      "URL": "https//linkedin.com/fway",
+      "Status": "Inactive"
     },
     {
       "ID": 6,
       "Platform": "Twitter",
       "Profile_Name": "FutureWay",
-      "URL": "https://twitter.com/fwayai",
-      "Status": "Active"
+      "URL": "https//twitter.com/fwayai",
+      "Status": "Inactive"
+    }
+  ],
+  "Whatsapp Group": [
+    {
+      "Brand": "FutureWay SMS",
+      "Pages": "Enquiry Page",
+      "WhatsApp_Link": "https://chat.whatsapp.com/Hjl0513jKZODvY9elaXwff"
+    },
+    {
+      "Brand": "FutureWay SMS",
+      "Pages": "Buy SMS Plan",
+      "WhatsApp_Link": "https://chat.whatsapp.com/Hjl0513jKZODvY9elaXwff"
     }
   ],
   "privacy policy": [
@@ -509,8 +721,6 @@ const websiteData=
       "Field": "Email",
       "Details": "futureway.in@gmail.com"
     },
-    
-    
     {
       "Field": "Policy Details",
       "Details": "FutureWay SMS is committed to protecting user privacy. This policy explains data collection, usage, and security."
@@ -553,7 +763,6 @@ const websiteData=
       "Field": "Email",
       "Details": "futureway.in@gmail.com"
     },
-    
     {
       "Field": "Service Usage",
       "Details": "Users agree to use services ethically and lawfully."
@@ -582,4 +791,4 @@ const websiteData=
 }
 
 
-  export default websiteData
+export default websiteData

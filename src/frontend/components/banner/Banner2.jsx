@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Button } from "react-bootstrap";
 import websiteData from "../../../assets/data"; // Adjust the import path according to your project structure
 import "./Banner.css";
+import SmsServiceModal from "../../pages/sms/SmsServicePage"; // Import SMS Modal
 
 // Extract Banner Data
 const trialData = websiteData.Banner || [];
@@ -13,6 +14,9 @@ const bannerDescription = trialData.find(item => item.Key === "Trial_Description
 const bannerCTA = trialData.find(item => item.Key === "Trial_Button_Text")?.Value || "Claim Now";
 
 const SecondBanner = () => {
+    const [showSMSModal, setShowSMSModal] = useState(false);
+    const handleShowSMSModal = () => setShowSMSModal(true);
+    const handleCloseSMSModal = () => setShowSMSModal(false);
   return (
     <section className="banner-section">
       <Container className="text-center">
@@ -22,9 +26,11 @@ const SecondBanner = () => {
         <p className="banner-subtitle">
           {bannerDescription}
         </p>
-        <Button variant="warning" size="lg" className="banner-btn">
+        <Button variant="warning" size="lg" className="banner-btn" onClick={handleShowSMSModal}>
           {bannerCTA}
         </Button>
+         {/* SMS Modal Component */}
+      <SmsServiceModal show={showSMSModal} handleClose={handleCloseSMSModal} />
       </Container>
     </section>
   );

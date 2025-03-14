@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { getDatabase, ref, push, serverTimestamp } from "firebase/database";
 import { Modal, Button, Form, Container, Row, Col } from "react-bootstrap";
-import { BiCheckCircle } from "react-icons/bi";
+import { BiCheckCircle, BiLogoWhatsapp } from "react-icons/bi"; // Import WhatsApp icon
 import firebaseApp from "../../../firebaseConfig/firebaseConfig";
+import websiteData from "../../../assets/data"; // Import your centralized data object
 import "./EnquiryFormComponent.css"; // Custom CSS file
 
 const EnquiryFormComponent = () => {
@@ -19,6 +20,7 @@ const EnquiryFormComponent = () => {
   const [showModal, setShowModal] = useState(false);
   const [submittedData, setSubmittedData] = useState(null);
 
+  // Static fields for enquiry form (these remain hardcoded as websiteData doesn't have an enquiry form config)
   const formFields = [
     { name: "fullName", label: "Your Name", type: "text", required: true },
     { name: "companyName", label: "Company Name", type: "text" },
@@ -26,13 +28,13 @@ const EnquiryFormComponent = () => {
     { name: "phone", label: "Phone", type: "tel", required: true },
   ];
 
-  const serviceOptions = [
-    { value: "textSmsMarketing", label: "Text SMS Marketing" },
-    { value: "whatsappSmsMarketing", label: "WhatsApp SMS Marketing" },
-    { value: "emailMarketing", label: "Email Marketing" },
-    { value: "digitalMarketingSocialMediaPost", label: "Digital Marketing - Social Media Post" },
-    { value: "digitalMarketingSocialMediaShortVideo", label: "Digital Marketing - Social Media Short Video" },
-  ];
+  // Generate service options from websiteData's "Services" array (exclude the description object)
+  const serviceOptions = websiteData["Services"]
+    .filter((service) => service.Service_Type !== "Description")
+    .map((service) => ({
+      value: service.Service_Type,
+      label: service.Service_Type,
+    }));
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -55,6 +57,17 @@ const EnquiryFormComponent = () => {
       });
   };
 
+  // Retrieve the label for the selected service to show in the modal
+  const selectedServiceLabel =
+    serviceOptions.find((option) => option.value === submittedData?.service)
+      ?.label || submittedData?.service;
+
+
+  // Find the WhatsApp group link based on the Enquiry Page
+  const whatsappGroup = websiteData["Whatsapp Group"].find(
+    (group) => group.Pages === "Enquiry Page"
+  )?.WhatsApp_Link;
+
   return (
     <Container className="enquiry-container">
       <h2 className="form-title">Enquiry Form</h2>
@@ -64,7 +77,8 @@ const EnquiryFormComponent = () => {
             <Col md={6} key={index}>
               <Form.Group controlId={field.name} className="mb-3">
                 <Form.Label>
-                  {field.label} {field.required && <span className="text-danger">*</span>}
+                  {field.label}{" "}
+                  {field.required && <span className="text-danger">*</span>}
                 </Form.Label>
                 <Form.Control
                   type={field.type}
@@ -79,28 +93,25 @@ const EnquiryFormComponent = () => {
           ))}
         </Row>
 
- 
-
-<Form.Group controlId="service" className="mb-3">
-  <Form.Label>Service <span className="text-danger">*</span></Form.Label>
-  <Form.Select
-    name="service"
-    value={formData.service}
-    onChange={handleInputChange}
-    required
-    className="rounded-input"
-  >
-    <option value="">Select a Service</option>
-    {serviceOptions.map((option) => (
-      <option key={option.value} value={option.value}>
-        {option.label}
-      </option>
-    ))}
-  </Form.Select>
-</Form.Group>
-
-
-
+        <Form.Group controlId="service" className="mb-3">
+          <Form.Label>
+            Service <span className="text-danger">*</span>
+          </Form.Label>
+          <Form.Select
+            name="service"
+            value={formData.service}
+            onChange={handleInputChange}
+            required
+            className="rounded-input"
+          >
+            <option value="">Select a Service</option>
+            {serviceOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
 
         {/* Message Field */}
         <Form.Group controlId="message" className="mb-3">
@@ -122,17 +133,46 @@ const EnquiryFormComponent = () => {
 
       {/* Success Modal */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            Success <BiCheckCircle className="success-icon" />
-          </Modal.Title>
+        
+
+
+        <Modal.Header closeButton className="d-flex align-items-center">
+          <h3 className="text-success fw-bold me-2">Success</h3>
+          <BiCheckCircle size={32} className="text-success" />
         </Modal.Header>
+
+
+
         <Modal.Body>
-          <p>Thank you, <strong>{submittedData?.fullName}</strong>!</p>
-          <p>Your enquiry for <strong>{submittedData?.service}</strong> has been submitted successfully.</p>
+          <p>
+            Thank you, <strong>{submittedData?.fullName}</strong>!
+          </p>
+          <p>
+            Your enquiry for{" "}
+            <strong>{selectedServiceLabel}</strong> has been submitted successfully.
+          </p>
+      
+
+          {whatsappGroup && (
+              <div className="whatsapp-container">
+                <Button
+                  href={whatsappGroup}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="whatsapp-button"
+                >
+                  Join WhatsApp Group
+                </Button>
+              </div>
+            )}
+
+
+            
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>Close</Button>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
     </Container>
