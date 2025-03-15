@@ -1,49 +1,60 @@
-
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import PosterCanvas from "./PosterCanvas";
-import websiteData from "../../../assets/data"; // Example external data
 import "./PosterGenerator.css";
+import { BiDownload } from "react-icons/bi";
+
+const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbwTeEaL8X99fi8_4VxG90tMJeo4z7tOf1vaJ_DNp8t6QrYEU0fntq_8Jxcvk3MyTvfG4A/exec";
+
+const fetchQuotesFromSheet = async () => {
+  try {
+    const response = await fetch(SHEET_API_URL);
+    const data = await response.json();
+
+    if (Array.isArray(data)) {
+      return data.filter((quote) => quote.Status === "Active").map((quote) => ({
+        content: quote.Content || "No Content",
+        fontSize: 40,
+        textColor: "#ffffff",
+        fontWeight: "bold",
+        author: quote.Author || "Unknown",
+        category: quote.Category || "Uncategorized",
+      }));
+    } else {
+      console.error("Invalid Data Format", data);
+      return [];
+    }
+  } catch (error) {
+    console.error("Error fetching quotes:", error);
+    return [];
+  }
+};
 
 const PosterGenerator = () => {
-  // ======================
-  // States
-  // ======================
   const [platform, setPlatform] = useState("Facebook");
   const [backgroundType, setBackgroundType] = useState("solid");
   const [bgColor, setBgColor] = useState("#ff9900");
   const [gradientStart, setGradientStart] = useState("#ff9900");
   const [gradientEnd, setGradientEnd] = useState("#ffffff");
-
-
-  const [textBlocks, setTextBlocks] = useState(
-    websiteData?.Quotes?.filter(quote => quote.Status === "Active").map(quote => ({
-      content: quote.Content,
-      fontSize: 40,
-      textColor: "#ffffff",
-      fontWeight: "bold",
-      author: quote.Author || "",
-      category: quote.Category || ""
-    })) || []
-  );
-
-
+  const [textBlocks, setTextBlocks] = useState([]);
   const [brandName, setBrandName] = useState("FutureWay");
   const [logo, setLogo] = useState(null);
-
   const [designStyle, setDesignStyle] = useState("classic");
   const [showFooter, setShowFooter] = useState(true);
   const [showLogo, setShowLogo] = useState(true);
-
-  // For quote editing
   const [selectedQuoteIndex, setSelectedQuoteIndex] = useState(null);
 
-  // Canvas ref for download
+
   const posterCanvasRef = useRef(null);
 
-  // ======================
-  // Handlers
-  // ======================
+  useEffect(() => {
+    const loadQuotes = async () => {
+      const fetchedQuotes = await fetchQuotesFromSheet();
+      setTextBlocks(fetchedQuotes);
+    };
+    loadQuotes();
+  }, []);
+
   const handleLogoUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -53,12 +64,10 @@ const PosterGenerator = () => {
     }
   };
 
-  // Quote selection
   const handleQuoteSelect = (index) => {
     setSelectedQuoteIndex(index);
   };
 
-  // Create new quote
   const handleCreateNewQuote = () => {
     const newBlock = {
       content: "",
@@ -66,83 +75,105 @@ const PosterGenerator = () => {
       textColor: "#ffffff",
       fontWeight: "bold",
       author: "",
-      category: ""
+      category: "Uncategorized",
     };
-    setTextBlocks(prev => [...prev, newBlock]);
-    setSelectedQuoteIndex(textBlocks.length); // Ensure selection moves to new quote
+    setTextBlocks((prev) => [...prev, newBlock]);
+    setSelectedQuoteIndex(textBlocks.length);
   };
 
-
-  // Update fields of the currently selected quote
   const handleQuoteFieldChange = (e) => {
     if (selectedQuoteIndex === null) return;
     const { name, value } = e.target;
-    const updated = [...textBlocks];
-    updated[selectedQuoteIndex][name] = value;
-    setTextBlocks(updated);
+    setTextBlocks((prev) => {
+      const updated = [...prev];
+      updated[selectedQuoteIndex] = { ...updated[selectedQuoteIndex], [name]: value };
+      return updated;
+    });
   };
 
-  // Download poster
   const handleDownload = () => {
-    if (posterCanvasRef.current?.downloadPoster) {
-      posterCanvasRef.current.downloadPoster();
-    } else {
-      console.warn("Download function is missing in PosterCanvas");
-    }
+    posterCanvasRef.current?.downloadPoster();
   };
 
+  
+  const [selectedQuote, setSelectedQuote] = useState({ content: "" });
 
-
-
-  // The selected quote block
-  const selectedQuote =
-    selectedQuoteIndex !== null ? textBlocks[selectedQuoteIndex] : null;
-
-  // Group quotes by category
-  const groupedQuotes = textBlocks.reduce((acc, block, idx) => {
-    const cat = block.category || "Uncategorized";
-    if (!acc[cat]) {
-      acc[cat] = [];
-    }
-    acc[cat].push({ ...block, index: idx });
-    return acc;
-  }, {});
-
-
-  // Display Warning Messge For Long Quote
-
-  const [quoteText, setQuoteText] = useState("");
-  const [warning, setWarning] = useState("");
-
-  const handleQuoteChange = (e) => {
-    const inputText = e.target.value;
-    if (inputText.length > 100) {
-      setWarning("⚠️ Maximum 100 characters allowed!");
+  useEffect(() => {
+    if (selectedQuoteIndex !== null) {
+      setSelectedQuote(textBlocks[selectedQuoteIndex]);
     } else {
-      setWarning("");
+      setSelectedQuote({ content: "" }); // Set a default empty object instead of null
     }
-    setQuoteText(inputText);
-  };
-
-
+  }, [selectedQuoteIndex, textBlocks]);
+  
   return (
-    <div className="pro-poster-layout">
-      {/* NAVBAR / TOP HEADER */}
-      <header className="top-nav">
-        <div className="brand-logo">
+    <div className="pro-poster-layout ">
 
-        </div>
-        <div className="nav-actions">
-          {/* Example "Buy SMS" button */}
 
-          {/* Download Button */}
-          <Button variant="success" onClick={handleDownload}>
-            Download Quote
-          </Button>
-        </div>
-      </header>
+<header className="top-nav no-hover d-flex align-items-center justify-content-between px-4 py-2 shadow-sm bg-white border-bottom">
+  {/* Left Side: Text Styling Controls */}
+  <div className="d-flex align-items-center gap-3">
+    {/* Font Size Control */}
+    <div className="d-flex align-items-center gap-2">
+      <i className="bi bi-text-paragraph text-muted"></i>
+      <Form.Control
+        type="number"
+        name="fontSize"
+        value={selectedQuote?.fontSize || 16}
+        onChange={handleQuoteFieldChange}
+        className="form-control-sm text-center"
+        min="10"
+        max="100"
+        style={{ width: "60px" }}
+      />
+    </div>
 
-      {/* MAIN AREA: 3 columns (Left Editor, Center Canvas, Right Quotes) */}
+    {/* Bold & Italic Toggles */}
+    <div className="btn-group">
+      <Button
+        variant={selectedQuote?.fontWeight === "bold" ? "dark" : "light"}
+        className="px-3 no-hover"
+        onClick={() => handleQuoteFieldChange({ target: { name: "fontWeight", value: selectedQuote?.fontWeight === "bold" ? "normal" : "bold" } })}
+      >
+        <i className="bi bi-type-bold"></i>
+      </Button>
+
+      <Button
+        variant={selectedQuote?.fontStyle === "italic" ? "dark" : "light"}
+        className="px-3 no-hover"
+        onClick={() => handleQuoteFieldChange({ target: { name: "fontStyle", value: selectedQuote?.fontStyle === "italic" ? "normal" : "italic" } })}
+      >
+        <i className="bi bi-type-italic"></i>
+      </Button>
+    </div>
+
+    {/* Font Color Picker */}
+    <div className="d-flex align-items-center gap-2">
+      <i className="bi bi-palette text-muted"></i>
+      <Form.Control
+        type="color"
+        name="textColor"
+        value={selectedQuote?.textColor || "#000000"}
+        onChange={handleQuoteFieldChange}
+        className="form-control-color border-0"
+        style={{ width: "40px", height: "30px" }}
+      />
+    </div>
+
+     {/* Right Side: Download Button */}
+  <div>
+    <Button variant="success" className="px-4 fw-bold d-flex align-items-center no-hover border-1" onClick={handleDownload}>
+      <BiDownload className="me-2 text-dark  " />
+    </Button>
+  </div>
+  </div>
+
+ 
+</header>
+
+
+
+        {/* MAIN AREA: 3 columns (Left Editor, Center Canvas, Right Quotes) */}
       <div className="main-content">
         {/* LEFT EDITOR: Appearance + Editor for selected quote */}
         <aside className="left-editor">
@@ -159,6 +190,39 @@ const PosterGenerator = () => {
                 <option value="WhatsApp">WhatsApp (800x800)</option>
               </Form.Select>
             </Form.Group>
+
+            
+
+          
+  <Form.Group className="mb-3">
+  <Form.Label>Content</Form.Label>
+  <Form.Control
+    as="textarea"
+    name="content"
+    value={selectedQuote?.content || ""} // Use optional chaining and default empty string
+    onChange={handleQuoteFieldChange}
+    maxLength={100}
+    rows={3}
+  />
+  {(selectedQuote?.content?.length || 0) > 100 && (
+    <Form.Text className="text-danger">
+      Only 100 characters allowed.
+    </Form.Text>
+  )}
+</Form.Group>
+
+
+
+
+                <Form.Group className="mb-3">
+                  <Form.Label>Author</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="author"
+                    value={selectedQuote.author}
+                    onChange={handleQuoteFieldChange}
+                  />
+                </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label>Background Type</Form.Label>
@@ -246,81 +310,10 @@ const PosterGenerator = () => {
             </Form.Group>
           </Form>
 
-          {/* If a quote is selected, show editor fields */}
-          {selectedQuote && (
-            <div className="quote-editor">
-              <h4>Selected Quote</h4>
-              <Form>
-                <Form.Group className="mb-3">
-                  <Form.Label>Category</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="category"
-                    value={selectedQuote.category}
-                    onChange={handleQuoteFieldChange}
-                  />
-                </Form.Group>
-
-
-                <Form.Group className="mb-3">
-                  <Form.Label>Content</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="content"
-                    value={selectedQuote.content}
-                    onChange={handleQuoteFieldChange}
-                    maxLength={100} // Prevent input beyond 100 characters
-                  />
-                  {selectedQuote.content.length > 100 && (
-                    <Form.Text className="text-danger">
-                      Only 100 characters allowed.
-                    </Form.Text>
-                  )}
-                </Form.Group>
-
-
-                <Form.Group className="mb-3">
-                  <Form.Label>Author</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="author"
-                    value={selectedQuote.author}
-                    onChange={handleQuoteFieldChange}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Font Size</Form.Label>
-                  <Form.Control
-                    type="number"
-                    name="fontSize"
-                    value={selectedQuote.fontSize}
-                    onChange={handleQuoteFieldChange}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Text Color</Form.Label>
-                  <Form.Control
-                    type="color"
-                    name="textColor"
-                    value={selectedQuote.textColor}
-                    onChange={handleQuoteFieldChange}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Font Weight</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="fontWeight"
-                    value={selectedQuote.fontWeight}
-                    onChange={handleQuoteFieldChange}
-                  />
-                </Form.Group>
-              </Form>
-            </div>
-          )}
+         
         </aside>
 
-        {/* CENTER: Canvas Preview */}
+
         <div className="center-panel">
           <PosterCanvas
             ref={posterCanvasRef}
@@ -339,28 +332,15 @@ const PosterGenerator = () => {
           />
         </div>
 
-        {/* RIGHT: Quotes List */}
         <aside className="right-quotes">
           <h4>All Quotes</h4>
           <div className="quotes-container">
-            {Object.entries(groupedQuotes).map(([cat, blocks]) => (
-              <div key={cat} className="quote-category">
-                <h5>{cat}</h5>
-                {blocks.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className={`quote-item ${item.index === selectedQuoteIndex ? "selected" : ""
-                      }`}
-                    onClick={() => handleQuoteSelect(item.index)}
-                  >
-                    <p className="quote-content">
-                      {item.content || "Empty Quote"}
-                    </p>
-                    <p className="quote-author">
-                      <em>{item.author || "Unknown"}</em>
-                    </p>
-                  </div>
-                ))}
+            {textBlocks.map((item, idx) => (
+              <div key={idx} className={`quote-item ${idx === selectedQuoteIndex ? "selected" : ""}`} onClick={() => handleQuoteSelect(idx)}>
+                <p className="quote-content">{item.content || "Empty Quote"}</p>
+                <p className="quote-author">
+                  <em>{item.author || "Unknown"}</em>
+                </p>
               </div>
             ))}
           </div>
