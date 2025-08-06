@@ -37,12 +37,9 @@ const websiteData=
       "Section": "Menu",
       "Key": "Enquiry",
       "Value": "/enquiry"
-    },
-    {
-      "Section": "Menu",
-      "Key": "Generate Quote",
-      "Value": "/quotes"
     }
+
+    
   ],
 
   "Quotes": [
