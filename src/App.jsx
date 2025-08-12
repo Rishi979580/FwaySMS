@@ -55,7 +55,7 @@ function App() {
           <Route path="/check-report" element={<CheckReport />} />
           <Route path="/pricing" element={<SubscriptionPlans />} />
           <Route path="/enquiry" element={<EnquiryPage />} />
-          <Route path="/quotes" element={<PosterGenerator />} />
+          <Route path="/templates" element={<PosterGenerator />} />
           {/* <Route path="/quotes" element={<QuotesGenerator />} /> */}
 
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

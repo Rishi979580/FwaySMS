@@ -23,8 +23,7 @@ npm install
 ## 3️⃣ Run the Development Server
 Start the development server with:
 ```sh
-npm run dev
-```
+npm run dev```
 Your project will be available at `http://localhost:3000` (or the port specified in your configuration).
 
 ---

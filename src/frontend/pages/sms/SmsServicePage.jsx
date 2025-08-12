@@ -243,21 +243,8 @@ const SmsServiceModal = ({ show, handleClose }) => {
               ))}
             </Form.Select>
 
-            <Form.Label>
-              {formFields["Message Type"].Label}{" "}
-              <span className="text-danger">*</span>
-            </Form.Label>
-            <Form.Select
-              className="mb-3"
-              value={messageType}
-              onChange={(e) => setMessageType(e.target.value)}
-            >
-              {messageTypes.map((type, index) => (
-                <option key={index} value={type.Service_Type}>
-                  {type.Service_Type}
-                </option>
-              ))}
-            </Form.Select>
+           
+           
 
             <Form.Label>
               {formFields["DLT Registration"].Label}{" "}

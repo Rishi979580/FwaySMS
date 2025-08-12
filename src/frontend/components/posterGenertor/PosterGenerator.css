@@ -1,218 +1,29 @@
-
-
-body, html, #root {
-  width: 100% !important;
-  height: 100% !important;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-  background-color: #f0f2f5 !important;
-  color: #333 !important;
+.poster-wrapper {
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  height: 200px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* TOP NAV / HEADER */
-.top-nav {
-  flex: 0 0 60px !important;
-  background: #fff !important;
-  border-bottom: 1px solid #ddd !important;
-  padding: 0 20px !important;
-  display: flex !important;
-  align-items: right !important;
-  justify-content: space-between !important;
+.poster-img {
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
-.brand-logo img {
-  max-height: 10px !important;
+.poster-wrapper:hover .poster-img {
+  transform: scale(1.05);
 }
 
-.nav-actions button {
-  margin-left: 10px !important;
-}
-
-/* MAIN AREA: 3 columns on larger screens */
-.main-content {
-  display: grid !important;
-  grid-template-columns: 300px 1fr 300px !important;
-  grid-gap: 20px !important;
-  padding: 20px !important;
-}
-
-/* LEFT PANEL: Editor + Appearance */
-.left-editor {
-  background: #fff !important;
-  border: 1px solid #ddd !important;
-  border-radius: 8px !important;
-  padding: 15px !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
-  display: flex !important;
-  flex-direction: column !important;
-  max-height: 80vh !important;
-  overflow-y: auto !important;
-}
-
-.left-editor h4 {
-  font-size: 1.2rem !important;
-  margin-bottom: 10px !important;
-}
-
-.quote-editor {
-  min-height: 150px !important;
-  max-height: 60vh !important;
-  overflow-y: auto !important;
-}
-
-.quote-editor h4 {
-  margin-bottom: 10px !important;
-  font-size: 1rem !important;
-  color: #333 !important;
-}
-
-/* CENTER: Canvas preview */
-.center-panel {
-  background: #fff !important;
-  border: 1px solid #ddd !important;
-  border-radius: 8px !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 10px !important;
-}
-
-.center-panel canvas {
-  width: 100% !important;
-  max-width: 600px !important;
-  height: auto !important;
-  display: block !important;
-}
-
-/* RIGHT: Quotes list */
-.right-quotes {
-  background: #fff !important;
-  border: 1px solid #ddd !important;
-  border-radius: 8px !important;
-  padding: 15px !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-
-.right-quotes h4 {
-  font-size: 1.2rem !important;
-  margin-bottom: 10px !important;
-}
-
-.quotes-container {
-  flex: 1 !important;
-  border: 1px dashed #ccc !important;
-  padding: 10px !important;
-  border-radius: 6px !important;
-  background: #f9f9f9 !important;
-  margin-bottom: 10px !important;
-  max-height: 60vh !important;
-  overflow-y: auto !important;
-}
-
-.quote-category {
-  margin-bottom: 15px !important;
-}
-
-.quote-category h5 {
-  margin-bottom: 5px !important;
-  font-size: 1rem !important;
-  color: #444 !important;
-}
-
-.quote-item {
-  border: 1px dashed #ccc !important;
-  border-radius: 6px !important;
-  padding: 8px !important;
-  margin-bottom: 8px !important;
-  background: #fff !important;
-  cursor: pointer !important;
-  transition: background 0.2s ease !important;
-}
-
-.quote-item:hover {
-  background: #eef !important;
-}
-
-.quote-item.selected {
-  background: #e2ecff !important;
-  border-color: #66aaff !important;
-}
-
-.quote-content {
-  font-size: 0.9rem !important;
-  margin-bottom: 5px !important;
-}
-
-.quote-author {
-  font-size: 0.8rem !important;
-  color: #666 !important;
-}
-
-/* Responsive for smaller screens */
-@media (max-width: 992px) {
-  .main-content {
-    grid-template-columns: 1fr !important;
-    grid-template-rows: auto auto auto !important;
+/* Custom 5-column layout on lg+ screens */
+@media (min-width: 992px) {
+  .col-lg-2-4 {
+    flex: 0 0 auto;
+    width: 20%;
   }
-  .left-editor, .center-panel, .right-quotes {
-    margin-bottom: 20px !important;
-    height: auto !important;
-    max-height: none !important;
-  }
-}
-
-/* Custom Scrollbar for large screens */
-@media (min-width: 1200px) {
-  .left-editor, .quote-editor, .quotes-container {
-    scrollbar-width: thin !important;
-    scrollbar-color: #bbb #f0f0f0 !important;
-  }
-
-  .left-editor::-webkit-scrollbar,
-  .quote-editor::-webkit-scrollbar,
-  .quotes-container::-webkit-scrollbar {
-    width: 8px !important;
-  }
-
-  .left-editor::-webkit-scrollbar-thumb,
-  .quote-editor::-webkit-scrollbar-thumb,
-  .quotes-container::-webkit-scrollbar-thumb {
-    background-color: #bbb !important;
-    border-radius: 4px !important;
-  }
-
-  .left-editor::-webkit-scrollbar-track,
-  .quote-editor::-webkit-scrollbar-track,
-  .quotes-container::-webkit-scrollbar-track {
-    background: #f0f0f0 !important;
-  }
-}
-
-/* Remove hover effects on header */
-.top-nav,
-.top-nav * {
-  pointer-events: auto !important;
-}
-
-.top-nav.no-hover:hover,
-.top-nav.no-hover:focus,
-.top-nav.no-hover:active {
-  background-color: inherit !important;
-  border-color: inherit !important;
-  color: inherit !important;
-  box-shadow: none !important;
-  text-decoration: none !important;
-  filter: none !important;
-}
-
-/* Ensuring buttons inside header also don't have hover effects */
-.top-nav .btn.no-hover:hover,
-.top-nav .btn.no-hover:focus,
-.top-nav .btn.no-hover:active {
-  background-color: inherit !important;
-  border-color: inherit !important;
-  color: inherit !important;
-  box-shadow: none !important;
 }

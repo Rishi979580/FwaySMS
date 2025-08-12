@@ -66,9 +66,8 @@ const NavbarComponent = () => {
 
 
           {/* Buy SMS Button */}
-          <button className="btn btn-primary sms-button" onClick={handleShowSMSModal}>
-            <BiSolidMessageDetail size={30} className="text-white me-2" />
-            Buy SMS Now
+          <button className="btn btn-secondary sms-button" onClick={handleShowSMSModal}>
+            Buy Plan Now
           </button>
         </div>
       </nav>

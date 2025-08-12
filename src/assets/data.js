@@ -1,12 +1,13 @@
 const websiteData=
 
 
+
 {
   "Menu": [
     {
       "Section": "Logo",
       "Key": "Title",
-      "Value": "FutureWay SMS"
+      "Value": "FutureWay Tech"
     },
     {
       "Section": "Logo",
@@ -16,7 +17,7 @@ const websiteData=
     {
       "Section": "Logo",
       "Key": "Slogan",
-      "Value": "Bulk SMS | Whatsapp | Email"
+      "Value": "Bulk SMS | Whatsapp | SMM"
     },
     {
       "Section": "Menu",
@@ -40,11 +41,10 @@ const websiteData=
     },
     {
       "Section": "Menu",
-      "Key": "Generate Quote",
-      "Value": "/quotes"
+      "Key": "Templates",
+      "Value": "/templates"
     }
   ],
-
   "Quotes": [
     {
       "Category": "Education",
@@ -197,17 +197,16 @@ const websiteData=
       "Status": "Active"
     }
   ],
-  
   "Hero": [
     {
       "Section": "Hero",
       "Key": "Heading",
-      "Value": "🚀 Cheapest Bulk SMS Provider in India – ₹0.80/SMS"
+      "Value": "🚀 Cheapest Bulk SMS ₹0.80/SMS & Social Media Management in India"
     },
     {
       "Section": "Hero",
       "Key": "Subheading",
-      "Value": "We send SMS via the US route and multiple Indian operator routes."
+      "Value": "📩 SMS via US & Indian operator routes | 🎯 Social Media Growth & Branding"
     },
     {
       "Section": "Hero",
@@ -223,7 +222,7 @@ const websiteData=
   "Banner": [
     {
       "Key": "Title",
-      "Value": "📢 Cheapest Bulk SMS Provider in India"
+      "Value": "🚀 Cheapest Bulk SMS & Social Media Management"
     },
     {
       "Key": "Highlight",
@@ -267,7 +266,7 @@ const websiteData=
     },
     {
       "Plan": "Starter Pack",
-      "Price": "₹199",
+      "Price": "₹499",
       "Messages": "250 Messages",
       "Validity": "7 Days",
       "WhatsApp_Messaging": "✅",
@@ -277,8 +276,8 @@ const websiteData=
     },
     {
       "Plan": "Growth Pack",
-      "Price": "₹499",
-      "Messages": "600 Messages",
+      "Price": "₹3999",
+      "Messages": "600 Messages and Facebook & Instagram Manage",
       "Validity": "1 Month",
       "WhatsApp_Messaging": "✅",
       "Email_Campaigns": "✅",
@@ -287,9 +286,9 @@ const websiteData=
     },
     {
       "Plan": "Business Pack",
-      "Price": "₹999",
-      "Messages": "1500 Messages",
-      "Validity": "3 Months",
+      "Price": "₹9999",
+      "Messages": "1500 Messages Facebook, Instagram & Linkedin Manage",
+      "Validity": "2 Months",
       "WhatsApp_Messaging": "✅",
       "Email_Campaigns": "✅",
       "Priority_Support": "✅",
@@ -322,14 +321,14 @@ const websiteData=
       "Description": "Produce captivating short videos for social media marketing and audience engagement."
     },
     {
-      "Service_Type": "Automated – Social Media Posting",
-      "Description": "Schedule and publish social media posts automatically across multiple platforms, ensuring consistent engagement and time-saving marketing."
+      "Service_Type": "SMM- Social Media Page Manage",
+      "Description": "One-stop solution for your business communication & branding needs — complete social media management"
     }
   ],
   "Features": [
     {
       "Feature": "Description",
-      "Details": " Other operators charge ₹5-7 per SMS without  DLT registration,  While with DLT Reg ( costs ₹5999 per year),  average cost  ₹0.40 per SMS. With FutureWaySMS, you can send SMS instantly at a much lower cost without any hidden fees!\n"
+      "Details": "✨ With FutureWay Tech, you save more and reach more – whether it’s through powerful SMS campaigns or impactful social media marketing."
     },
     {
       "Feature": "High Cost of Other Operators",
@@ -376,14 +375,14 @@ const websiteData=
       "Details": "₹5-7 per SMS without DLT"
     },
     {
-      "Feature": "FutureWaySMS Pricing",
+      "Feature": "FutureWay Tech Pricing",
       "Details": "Send messages at a fraction of the cost"
     }
   ],
   "Footer": [
     {
       "Field": "Company Name",
-      "Details": "FutureWay SMS"
+      "Details": "FutureWay Tech"
     },
     {
       "Field": "Location",
@@ -571,19 +570,22 @@ const websiteData=
     },
     {
       "Label": "Starter Pack",
-      "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FStarter%20Pack.jpg?alt=media&token=9b7b4076-46b4-4ab7-988d-302a59db0514"
+      "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FStarter%20Pack.jpeg?alt=media&token=089ff9b9-8436-4b0f-bf29-0a2fa36407e0"
+
+      
     },
     {
       "Label": "Growth Pack",
-      "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FGrowth%20Pack.jpg?alt=media&token=ccc8ba9c-dd22-4b80-a8f8-6e1b6c6287f6"
+      "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FGrowth%20Pack.jpeg?alt=media&token=4d52e354-34b6-4b9c-bbf6-1de6804d0707"
     },
     {
       "Label": "Business Pack",
-      "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FBusiness%20Pack.jpg?alt=media&token=ff2f35ae-b9d8-4ccf-9adf-2c28832ff62d"
+      "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FBusiness%20Pack.jpeg?alt=media&token=f972271c-c4e0-4903-9215-f9c107da3c33"
+    
     },
     {
       "Label": "Free Plan",
-      "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FFree%20Plan.jpg?alt=media&token=805aedeb-86c1-4a72-b593-24962fb3f71e"
+      "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FFree%20Plan.jpeg?alt=media&token=19b05ed4-9b1f-49e5-9d1b-8734b118ba1a"
     }
   ],
   "Check Report": [
@@ -637,11 +639,11 @@ const websiteData=
     },
     {
       "Key": "Prepaid",
-      "Value": "📍 Bulk messages for prepaid customers are approved within 1-2 hours."
+      "Value": "📍 Bulk messages for prepaid customers are approved within 1–2 hours."
     },
     {
       "Key": "NonPrepaid",
-      "Value": "📍 Bulk messages for non-prepaid customers may take up to 24 working hours."
+      "Value": "📍 Bulk messages for non-prepaid customers are approved within up to 24 working hours."
     },
     {
       "Key": "CTA",
@@ -694,12 +696,12 @@ const websiteData=
   ],
   "Whatsapp Group": [
     {
-      "Brand": "FutureWay SMS",
+      "Brand": "FutureWay Tech",
       "Pages": "Enquiry Page",
       "WhatsApp_Link": "https://chat.whatsapp.com/Hjl0513jKZODvY9elaXwff"
     },
     {
-      "Brand": "FutureWay SMS",
+      "Brand": "FutureWay Tech",
       "Pages": "Buy SMS Plan",
       "WhatsApp_Link": "https://chat.whatsapp.com/Hjl0513jKZODvY9elaXwff"
     }
@@ -707,7 +709,7 @@ const websiteData=
   "privacy policy": [
     {
       "Field": "Company Name",
-      "Details": "FutureWay SMS"
+      "Details": "FutureWay Tech"
     },
     {
       "Field": "Location",
@@ -749,7 +751,7 @@ const websiteData=
   "terms condtions": [
     {
       "Field": "Company Name",
-      "Details": "FutureWay SMS"
+      "Details": "FutureWay Tech"
     },
     {
       "Field": "Location",
@@ -789,6 +791,5 @@ const websiteData=
     }
   ]
 }
-
 
 export default websiteData

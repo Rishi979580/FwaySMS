@@ -1,356 +1,116 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
-import PosterCanvas from "./PosterCanvas";
+import React, { useState } from "react";
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./PosterGenerator.css";
-import { BiDownload } from "react-icons/bi";
 
-const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbwTeEaL8X99fi8_4VxG90tMJeo4z7tOf1vaJ_DNp8t6QrYEU0fntq_8Jxcvk3MyTvfG4A/exec";
-
-const fetchQuotesFromSheet = async () => {
-  try {
-    const response = await fetch(SHEET_API_URL);
-    const data = await response.json();
-
-    if (Array.isArray(data)) {
-      return data.filter((quote) => quote.Status === "Active").map((quote) => ({
-        content: quote.Content || "No Content",
-        fontSize: 40,
-        textColor: "#ffffff",
-        fontWeight: "bold",
-        author: quote.Author || "Unknown",
-        category: quote.Category || "Uncategorized",
-      }));
-    } else {
-      console.error("Invalid Data Format", data);
-      return [];
-    }
-  } catch (error) {
-    console.error("Error fetching quotes:", error);
-    return [];
-  }
+// Poster Categories
+const posterCategories = {
+  doctors: [...Array(10).keys()].map(
+    (i) => `/img/wallpapers/doctors_Watermarked_Wallpapers/doctors_wallpaper_${i + 1}.jpeg`
+  ),
+  pathology: [...Array(10).keys()].map(
+    (i) => `/img/wallpapers/pathology_Watermarked_Wallpapers/pathology_wallpaper_${i + 1}.jpeg`
+  ),
+  schools: [...Array(10).keys()].map(
+    (i) => `/img/wallpapers/schools_Watermarked_Wallpapers/schools_wallpaper_${i + 1}.jpeg`
+  ),
+  general: [...Array(10).keys()].map(
+    (i) =>
+      `/img/wallpapers/wallpapers-general_Watermarked_Wallpapers/wallpapers-general_wallpaper_${i + 1}.jpeg`
+  ),
 };
 
-const PosterGenerator = () => {
-  const [platform, setPlatform] = useState("Facebook");
-  const [backgroundType, setBackgroundType] = useState("solid");
-  const [bgColor, setBgColor] = useState("#ff9900");
-  const [gradientStart, setGradientStart] = useState("#ff9900");
-  const [gradientEnd, setGradientEnd] = useState("#ffffff");
-  const [textBlocks, setTextBlocks] = useState([]);
-  const [brandName, setBrandName] = useState("FutureWay");
-  const [logo, setLogo] = useState(null);
-  const [designStyle, setDesignStyle] = useState("classic");
-  const [showFooter, setShowFooter] = useState(true);
-  const [showLogo, setShowLogo] = useState(true);
-  const [selectedQuoteIndex, setSelectedQuoteIndex] = useState(null);
+const PosterGallery = () => {
+  const [activeCategory, setActiveCategory] = useState("doctors");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
 
+  const images = posterCategories[activeCategory];
+  const totalPages = Math.ceil(images.length / itemsPerPage);
+  const paginatedImages = images.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
-  const posterCanvasRef = useRef(null);
+  const handleDownloadCategory = async () => {
+    const zip = new JSZip();
+    const folder = zip.folder(activeCategory);
 
-  useEffect(() => {
-    const loadQuotes = async () => {
-      const fetchedQuotes = await fetchQuotesFromSheet();
-      setTextBlocks(fetchedQuotes);
-    };
-    loadQuotes();
-  }, []);
+    try {
+      await Promise.all(
+        images.map(async (url, index) => {
+          const response = await fetch(url);
+          const blob = await response.blob();
+          folder.file(`image_${index + 1}.jpeg`, blob);
+        })
+      );
 
-  const handleLogoUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => setLogo(reader.result);
-      reader.readAsDataURL(file);
+      const content = await zip.generateAsync({ type: "blob" });
+      saveAs(content, `${activeCategory}_images.zip`);
+    } catch (error) {
+      alert("Some images couldn't be downloaded. Please check image paths.");
     }
   };
 
-  const handleQuoteSelect = (index) => {
-    setSelectedQuoteIndex(index);
-  };
-
-  const handleCreateNewQuote = () => {
-    const newBlock = {
-      content: "",
-      fontSize: 40,
-      textColor: "#ffffff",
-      fontWeight: "bold",
-      author: "",
-      category: "Uncategorized",
-    };
-    setTextBlocks((prev) => [...prev, newBlock]);
-    setSelectedQuoteIndex(textBlocks.length);
-  };
-
-  const handleQuoteFieldChange = (e) => {
-    if (selectedQuoteIndex === null) return;
-    const { name, value } = e.target;
-    setTextBlocks((prev) => {
-      const updated = [...prev];
-      updated[selectedQuoteIndex] = { ...updated[selectedQuoteIndex], [name]: value };
-      return updated;
-    });
-  };
-
-  const handleDownload = () => {
-    posterCanvasRef.current?.downloadPoster();
-  };
-
-  
-  const [selectedQuote, setSelectedQuote] = useState({ content: "" });
-
-  useEffect(() => {
-    if (selectedQuoteIndex !== null) {
-      setSelectedQuote(textBlocks[selectedQuoteIndex]);
-    } else {
-      setSelectedQuote({ content: "" }); // Set a default empty object instead of null
-    }
-  }, [selectedQuoteIndex, textBlocks]);
-  
   return (
-    <div className="pro-poster-layout ">
+    <div className="container py-4">
+      {/* Category Buttons */}
+      <div className="mb-4 text-center">
+        {Object.keys(posterCategories).map((category) => (
+          <button
+            key={category}
+            className={`btn btn-sm mx-2 ${
+              activeCategory === category
+                ? "btn-success"
+                : "btn-outline-success"
+            }`}
+            onClick={() => {
+              setActiveCategory(category);
+              setCurrentPage(1);
+            }}
+          >
+            {category.charAt(0).toUpperCase() + category.slice(1)}
+          </button>
+        ))}
+      </div>
 
+      {/* Download Button */}
+      <div className="text-center mb-3">
+        <button className="btn btn-outline-primary" onClick={handleDownloadCategory}>
+          Download All "{activeCategory}" Images
+        </button>
+      </div>
 
-<header className="top-nav no-hover d-flex align-items-center justify-content-between px-4 py-2 shadow-sm bg-white border-bottom">
-  {/* Left Side: Text Styling Controls */}
-  <div className="d-flex align-items-center gap-3">
-    {/* Font Size Control */}
-    <div className="d-flex align-items-center gap-2">
-      <i className="bi bi-text-paragraph text-muted"></i>
-      <Form.Control
-        type="number"
-        name="fontSize"
-        value={selectedQuote?.fontSize || 16}
-        onChange={handleQuoteFieldChange}
-        className="form-control-sm text-center"
-        min="10"
-        max="100"
-        style={{ width: "60px" }}
-      />
-    </div>
-
-    {/* Bold & Italic Toggles */}
-    <div className="btn-group">
-      <Button
-        variant={selectedQuote?.fontWeight === "bold" ? "dark" : "light"}
-        className="px-3 no-hover"
-        onClick={() => handleQuoteFieldChange({ target: { name: "fontWeight", value: selectedQuote?.fontWeight === "bold" ? "normal" : "bold" } })}
-      >
-        <i className="bi bi-type-bold"></i>
-      </Button>
-
-      <Button
-        variant={selectedQuote?.fontStyle === "italic" ? "dark" : "light"}
-        className="px-3 no-hover"
-        onClick={() => handleQuoteFieldChange({ target: { name: "fontStyle", value: selectedQuote?.fontStyle === "italic" ? "normal" : "italic" } })}
-      >
-        <i className="bi bi-type-italic"></i>
-      </Button>
-    </div>
-
-    {/* Font Color Picker */}
-    <div className="d-flex align-items-center gap-2">
-      <i className="bi bi-palette text-muted"></i>
-      <Form.Control
-        type="color"
-        name="textColor"
-        value={selectedQuote?.textColor || "#000000"}
-        onChange={handleQuoteFieldChange}
-        className="form-control-color border-0"
-        style={{ width: "40px", height: "30px" }}
-      />
-    </div>
-
-     {/* Right Side: Download Button */}
-  <div>
-    <Button variant="success" className="px-4 fw-bold d-flex align-items-center no-hover border-1" onClick={handleDownload}>
-      <BiDownload className="me-2 text-dark  " />
-    </Button>
-  </div>
-  </div>
-
- 
-</header>
-
-
-
-        {/* MAIN AREA: 3 columns (Left Editor, Center Canvas, Right Quotes) */}
-      <div className="main-content">
-        {/* LEFT EDITOR: Appearance + Editor for selected quote */}
-        <aside className="left-editor">
-          <h4>Appearance</h4>
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Label>Platform</Form.Label>
-              <Form.Select
-                value={platform}
-                onChange={(e) => setPlatform(e.target.value)}
-              >
-                <option value="Facebook">Facebook (1200x630)</option>
-                <option value="Instagram">Instagram (1080x1080)</option>
-                <option value="WhatsApp">WhatsApp (800x800)</option>
-              </Form.Select>
-            </Form.Group>
-
-            
-
-          
-  <Form.Group className="mb-3">
-  <Form.Label>Content</Form.Label>
-  <Form.Control
-    as="textarea"
-    name="content"
-    value={selectedQuote?.content || ""} // Use optional chaining and default empty string
-    onChange={handleQuoteFieldChange}
-    maxLength={100}
-    rows={3}
-  />
-  {(selectedQuote?.content?.length || 0) > 100 && (
-    <Form.Text className="text-danger">
-      Only 100 characters allowed.
-    </Form.Text>
-  )}
-</Form.Group>
-
-
-
-
-                <Form.Group className="mb-3">
-                  <Form.Label>Author</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="author"
-                    value={selectedQuote.author}
-                    onChange={handleQuoteFieldChange}
-                  />
-                </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Background Type</Form.Label>
-              <Form.Select
-                value={backgroundType}
-                onChange={(e) => setBackgroundType(e.target.value)}
-              >
-                <option value="solid">Solid Color</option>
-                <option value="gradient">Gradient</option>
-              </Form.Select>
-            </Form.Group>
-            {backgroundType === "solid" && (
-              <Form.Group className="mb-3">
-                <Form.Label>Background Color</Form.Label>
-                <Form.Control
-                  type="color"
-                  value={bgColor}
-                  onChange={(e) => setBgColor(e.target.value)}
-                />
-              </Form.Group>
-            )}
-            {backgroundType === "gradient" && (
-              <>
-                <Form.Group className="mb-3">
-                  <Form.Label>Gradient Start</Form.Label>
-                  <Form.Control
-                    type="color"
-                    value={gradientStart}
-                    onChange={(e) => setGradientStart(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Gradient End</Form.Label>
-                  <Form.Control
-                    type="color"
-                    value={gradientEnd}
-                    onChange={(e) => setGradientEnd(e.target.value)}
-                  />
-                </Form.Group>
-              </>
-            )}
-
-            <Form.Group className="mb-3">
-              <Form.Label>Design Style</Form.Label>
-              <Form.Select
-                value={designStyle}
-                onChange={(e) => setDesignStyle(e.target.value)}
-              >
-                <option value="classic">Classic</option>
-                <option value="modern">Modern</option>
-              </Form.Select>
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Brand Name</Form.Label>
-              <Form.Control
-                type="text"
-                value={brandName}
-                onChange={(e) => setBrandName(e.target.value)}
+      {/* Poster Grid */}
+      <div className="row g-3">
+        {paginatedImages.map((imgSrc, index) => (
+          <div key={index} className="col-6 col-md-4 col-lg-2-4">
+            <div className="poster-wrapper">
+              <img
+                src={imgSrc}
+                alt={`Poster ${index + 1}`}
+                className="img-fluid poster-img"
               />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Logo Upload</Form.Label>
-              <Form.Control
-                type="file"
-                accept="image/*"
-                onChange={handleLogoUpload}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Check
-                type="checkbox"
-                label="Show Footer"
-                checked={showFooter}
-                onChange={(e) => setShowFooter(e.target.checked)}
-              />
-              <Form.Check
-                type="checkbox"
-                label="Show Logo"
-                checked={showLogo}
-                onChange={(e) => setShowLogo(e.target.checked)}
-              />
-            </Form.Group>
-          </Form>
-
-         
-        </aside>
-
-
-        <div className="center-panel">
-          <PosterCanvas
-            ref={posterCanvasRef}
-            platform={platform}
-            backgroundType={backgroundType}
-            bgColor={bgColor}
-            gradientStart={gradientStart}
-            gradientEnd={gradientEnd}
-            textBlocks={selectedQuote ? [selectedQuote] : []}
-            brandName={brandName}
-            logo={logo}
-            designStyle={designStyle}
-            showFooter={showFooter}
-            showLogo={showLogo}
-            watermark="Generated By Futureway.in"
-          />
-        </div>
-
-        <aside className="right-quotes">
-          <h4>All Quotes</h4>
-          <div className="quotes-container">
-            {textBlocks.map((item, idx) => (
-              <div key={idx} className={`quote-item ${idx === selectedQuoteIndex ? "selected" : ""}`} onClick={() => handleQuoteSelect(idx)}>
-                <p className="quote-content">{item.content || "Empty Quote"}</p>
-                <p className="quote-author">
-                  <em>{item.author || "Unknown"}</em>
-                </p>
-              </div>
-            ))}
+            </div>
           </div>
-          <Button variant="primary" onClick={handleCreateNewQuote}>
-            Create New Quote
-          </Button>
-        </aside>
+        ))}
+      </div>
+
+      {/* Pagination */}
+      <div className="d-flex justify-content-center mt-4">
+        <ul className="pagination">
+          {[...Array(totalPages).keys()].map((num) => (
+            <li key={num} className={`page-item ${currentPage === num + 1 ? "active" : ""}`}>
+              <button className="page-link" onClick={() => setCurrentPage(num + 1)}>
+                {num + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
 };
 
-export default PosterGenerator;
+export default PosterGallery;

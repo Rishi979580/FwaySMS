@@ -6,7 +6,7 @@ const EnquiryPage = () => {
       <div className="container-fluid">
         <div className="container">
           <h3 className="display-3 text-white mb-3 animated slideInDown">
-            Enquiry
+            
           </h3>
         </div>
       </div>
