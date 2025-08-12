@@ -28,13 +28,17 @@ const SubscriptionPlans = () => {
               <Card.Body>
                 <Card.Title className="plan-title">{plan.Plan}</Card.Title>
                 <h4 className="plan-price">{plan.Price}</h4>
-                <p className="plan-messages">{plan.Messages} • {plan.Validity}</p>
+                <p className="plan-messages">{plan.Messages} • {plan.Social_Media_Mgmt} •  {plan.Validity}</p>
+                <p className="plan-messages"> {plan.Post_Scheduling}</p>
+
                 <ul className="plan-features">
-                  <li>✅ Bulk SMS</li>
-                  <li>{plan.WhatsApp_Messaging} WhatsApp Messaging</li>
-                  <li>{plan.Email_Campaigns} Email Campaigns</li>
-                  <li>{plan.Priority_Support} Priority Support</li>
-                  <li>{plan.Automation} Automation</li>
+        
+                  <li>{plan.Whatsapp}Whatsapp</li>
+                  <li>{plan.Facebook} Facebook</li>
+                  <li>{plan.Instagram} Instagram</li>
+                  <li>{plan.Linkedin} Linkedin</li>
+
+
                 </ul>
                 <Button 
                   variant="primary" 

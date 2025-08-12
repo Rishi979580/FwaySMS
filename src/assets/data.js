@@ -2,7 +2,7 @@ const websiteData=
 
 
 
-{
+  {
   "Menu": [
     {
       "Section": "Logo",
@@ -41,11 +41,9 @@ const websiteData=
     },
     {
       "Section": "Menu",
-      "Key": "Generate Quote",
-      "Value": "/quotes"
+      "Key": "Templates",
+      "Value": "/templates"
     }
-
-    
   ],
   "Quotes": [
     {
@@ -259,42 +257,50 @@ const websiteData=
     {
       "Plan": "Free Plan",
       "Price": "₹0",
-      "Messages": "10 Messages",
+      "Messages": "10 SMS",
       "Validity": "3 Days",
-      "WhatsApp_Messaging": "❌",
-      "Email_Campaigns": "❌",
-      "Priority_Support": "❌",
-      "Automation": "❌"
+      "Social_Media_Mgmt": "2 Posts",
+      "Post_Scheduling": "Sunday: 2 Posters with Watermark",
+      "Whatsapp": "❌",
+      "Facebook": "❌",
+      "Instagram": "❌",
+      "Linkedin": "❌"
     },
     {
       "Plan": "Starter Pack",
       "Price": "₹499",
-      "Messages": "250 Messages",
+      "Messages": "250 SMS",
       "Validity": "7 Days",
-      "WhatsApp_Messaging": "✅",
-      "Email_Campaigns": "❌",
-      "Priority_Support": "❌",
-      "Automation": "❌"
+      "Social_Media_Mgmt": "8 Posts",
+      "Post_Scheduling": "Weekend: 4 Posters+1 Reels",
+      "Whatsapp": "✅",
+      "Facebook": "❌",
+      "Instagram": "❌",
+      "Linkedin": "❌"
     },
     {
       "Plan": "Growth Pack",
       "Price": "₹3999",
-      "Messages": "600 Messages and Facebook & Instagram Manage",
+      "Messages": "600 SMS",
       "Validity": "1 Month",
-      "WhatsApp_Messaging": "✅",
-      "Email_Campaigns": "✅",
-      "Priority_Support": "❌",
-      "Automation": "❌"
+      "Social_Media_Mgmt": "60 Posts",
+      "Post_Scheduling": "Weekly: 8 Posters + 2 Reels",
+      "Whatsapp": "✅",
+      "Facebook": "✅",
+      "Instagram": "❌",
+      "Linkedin": "❌"
     },
     {
       "Plan": "Business Pack",
       "Price": "₹9999",
-      "Messages": "1500 Messages Facebook, Instagram & Linkedin Manage",
+      "Messages": "1500 SMS",
       "Validity": "2 Months",
-      "WhatsApp_Messaging": "✅",
-      "Email_Campaigns": "✅",
-      "Priority_Support": "✅",
-      "Automation": "✅"
+      "Social_Media_Mgmt": "120 Posts",
+      "Post_Scheduling": "Daily : 2 Posters + 2 Reels",
+      "Whatsapp": "✅",
+      "Facebook": "✅",
+      "Instagram": "✅",
+      "Linkedin": "✅"
     }
   ],
   "Services": [
@@ -572,9 +578,7 @@ const websiteData=
     },
     {
       "Label": "Starter Pack",
-      "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FStarter%20Pack.jpeg?alt=media&token=089ff9b9-8436-4b0f-bf29-0a2fa36407e0"
-
-      
+      "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FStarter%20Pack.jpg?alt=media&token=9b7b4076-46b4-4ab7-988d-302a59db0514"
     },
     {
       "Label": "Growth Pack",
@@ -583,7 +587,6 @@ const websiteData=
     {
       "Label": "Business Pack",
       "Fields": "https://firebasestorage.googleapis.com/v0/b/futurewayinfotech.appspot.com/o/qr-codes%2FBusiness%20Pack.jpeg?alt=media&token=f972271c-c4e0-4903-9215-f9c107da3c33"
-    
     },
     {
       "Label": "Free Plan",
