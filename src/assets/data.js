@@ -41,9 +41,11 @@ const websiteData=
     },
     {
       "Section": "Menu",
-      "Key": "Templates",
-      "Value": "/templates"
+      "Key": "Generate Quote",
+      "Value": "/quotes"
     }
+
+    
   ],
   "Quotes": [
     {
