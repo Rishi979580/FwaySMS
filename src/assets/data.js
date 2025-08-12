@@ -660,21 +660,21 @@ const websiteData=
       "ID": 1,
       "Platform": "YouTube",
       "Profile_Name": "FutureWay",
-      "URL": "https//youtube.com/fway",
+      "URL": "https://www.youtube.com/@Futureway-Tech",
       "Status": "Active"
     },
     {
       "ID": 2,
       "Platform": "Facebook",
       "Profile_Name": "FutureWay",
-      "URL": "https//facebook.com/fway",
+      "URL": "https://www.facebook.com/futurewaytechs/",
       "Status": "Active"
     },
     {
       "ID": 3,
       "Platform": "Instagram",
       "Profile_Name": "FutureWay",
-      "URL": "https//instagram.com/fway",
+      "URL": "https://www.instagram.com/futurewaytech/",
       "Status": "Active"
     },
     {
