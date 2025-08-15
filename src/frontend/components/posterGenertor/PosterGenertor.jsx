@@ -9,7 +9,7 @@ const PosterGallery = () => {
   const sectionRefs = useRef({});
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/wallpapers")
+    fetch("https://rishi979580.pythonanywhere.com/api/wallpapers")
       .then((res) => res.json())
       .then((data) => {
         setPosterCategories(data);
