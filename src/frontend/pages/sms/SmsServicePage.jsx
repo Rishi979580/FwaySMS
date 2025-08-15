@@ -238,7 +238,7 @@ const SmsServiceModal = ({ show, handleClose }) => {
             >
               {websiteData.Pricing.map((plan, index) => (
                 <option key={index} value={plan.Plan}>
-                  {`${plan.Plan} - ${plan.Messages} -${plan.Social_Media_Mgmt}- ${plan.Post_Scheduling} - ${plan.Price}`}
+                  {`${plan.Plan} - ${plan.Messages} -${plan.Social_Media_Mgmt}- ${plan.Post_Scheduling} - ${plan.Price}/    ---- Validity: ${plan.Validity} `}
                 </option>
               ))}
             </Form.Select>
