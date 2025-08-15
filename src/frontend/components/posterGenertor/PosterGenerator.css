@@ -1,29 +1,103 @@
-.poster-wrapper {
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  height: 200px;
-  background-color: #fff;
+.category-scroll {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow-x: auto;
+  padding: 5px 0;
+  gap: 8px;
+  scrollbar-width: none;
+}
+.category-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.category-scroll {
+  display: flex;
+  justify-content: center; /* ✅ center horizontally */
+  overflow-x: auto;
+  padding: 5px 0;
+  gap: 8px;
+  scrollbar-width: none;
+}
+
+.category-btn {
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid #28a745;
+  background-color: #f8f9fa;
+  color: #28a745;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.category-btn.active {
+  background-color: #28a745;
+  color: white;
+}
+.category-btn:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+/* Fade animation */
+.fade-wrapper {
+  transition: opacity 0.3s ease-in-out;
+}
+.fade-in {
+  opacity: 1;
+}
+.fade-out {
+  opacity: 0;
+}
+
+/* Image card */
+.poster-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+.poster-wrapper:hover {
+  transform: translateY(-4px);
 }
 
 .poster-img {
-  max-height: 100%;
-  width: auto;
-  object-fit: contain;
+  width: 100%;
+  height: auto;
+  display: block;
   transition: transform 0.3s ease;
 }
-
 .poster-wrapper:hover .poster-img {
   transform: scale(1.05);
 }
 
-/* Custom 5-column layout on lg+ screens */
-@media (min-width: 992px) {
-  .col-lg-2-4 {
-    flex: 0 0 auto;
-    width: 20%;
-  }
+/* Action buttons on top */
+.image-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.poster-wrapper:hover .image-actions {
+  opacity: 1;
+}
+
+.action-btn {
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.action-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
 }

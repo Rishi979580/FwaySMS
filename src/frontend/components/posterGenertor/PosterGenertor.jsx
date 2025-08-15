@@ -1,41 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./PosterGenerator.css";
 
-// Poster Categories
-const posterCategories = {
-  doctors: [...Array(10).keys()].map(
-    (i) => `/img/wallpapers/doctors_Watermarked_Wallpapers/doctors_wallpaper_${i + 1}.jpeg`
-  ),
-  pathology: [...Array(10).keys()].map(
-    (i) => `/img/wallpapers/pathology_Watermarked_Wallpapers/pathology_wallpaper_${i + 1}.jpeg`
-  ),
-  schools: [...Array(10).keys()].map(
-    (i) => `/img/wallpapers/schools_Watermarked_Wallpapers/schools_wallpaper_${i + 1}.jpeg`
-  ),
-  general: [...Array(10).keys()].map(
-    (i) =>
-      `/img/wallpapers/wallpapers-general_Watermarked_Wallpapers/wallpapers-general_wallpaper_${i + 1}.jpeg`
-  ),
-};
-
 const PosterGallery = () => {
-  const [activeCategory, setActiveCategory] = useState("doctors");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
+  const [posterCategories, setPosterCategories] = useState({});
+  const sectionRefs = useRef({});
 
-  const images = posterCategories[activeCategory];
-  const totalPages = Math.ceil(images.length / itemsPerPage);
-  const paginatedImages = images.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/wallpapers")
+      .then((res) => res.json())
+      .then((data) => {
+        setPosterCategories(data);
+        Object.keys(data).forEach((cat) => {
+          sectionRefs.current[cat] = React.createRef();
+        });
+      })
+      .catch((err) => console.error("Error fetching images:", err));
+  }, []);
 
-  const handleDownloadCategory = async () => {
+  const scrollToCategory = (category) => {
+    sectionRefs.current[category]?.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  // Download all images in a platform
+  const handleDownloadPlatform = async (category, platform, images) => {
     const zip = new JSZip();
-    const folder = zip.folder(activeCategory);
+    const folder = zip.folder(`${category}/${platform}`);
 
     try {
       await Promise.all(
@@ -47,68 +42,131 @@ const PosterGallery = () => {
       );
 
       const content = await zip.generateAsync({ type: "blob" });
-      saveAs(content, `${activeCategory}_images.zip`);
+      saveAs(content, `${category}_${platform}_images.zip`);
     } catch (error) {
-      alert("Some images couldn't be downloaded. Please check image paths.");
+      alert(`Some images in "${category} - ${platform}" couldn't be downloaded.`);
+    }
+  };
+
+  // Download a single image
+  const handleDownloadSingle = async (imgSrc, platform, index) => {
+    try {
+      const response = await fetch(imgSrc);
+      const blob = await response.blob();
+      saveAs(blob, `${platform}_poster_${index + 1}.jpeg`);
+    } catch (error) {
+      alert("Failed to download image");
+    }
+  };
+
+  // Share an image
+  const handleShare = async (imgSrc) => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Check out this poster!",
+          text: "Found this cool poster for you!",
+          url: imgSrc
+        });
+      } catch (error) {
+        console.error("Error sharing:", error);
+      }
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(imgSrc);
+      alert("Image link copied to clipboard!");
     }
   };
 
   return (
     <div className="container py-4">
       {/* Category Buttons */}
-      <div className="mb-4 text-center">
-        {Object.keys(posterCategories).map((category) => (
-          <button
-            key={category}
-            className={`btn btn-sm mx-2 ${
-              activeCategory === category
-                ? "btn-success"
-                : "btn-outline-success"
-            }`}
-            onClick={() => {
-              setActiveCategory(category);
-              setCurrentPage(1);
-            }}
-          >
-            {category.charAt(0).toUpperCase() + category.slice(1)}
-          </button>
-        ))}
-      </div>
-
-      {/* Download Button */}
-      <div className="text-center mb-3">
-        <button className="btn btn-outline-primary" onClick={handleDownloadCategory}>
-          Download All "{activeCategory}" Images
-        </button>
-      </div>
-
-      {/* Poster Grid */}
-      <div className="row g-3">
-        {paginatedImages.map((imgSrc, index) => (
-          <div key={index} className="col-6 col-md-4 col-lg-2-4">
-            <div className="poster-wrapper">
-              <img
-                src={imgSrc}
-                alt={`Poster ${index + 1}`}
-                className="img-fluid poster-img"
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Pagination */}
-      <div className="d-flex justify-content-center mt-4">
-        <ul className="pagination">
-          {[...Array(totalPages).keys()].map((num) => (
-            <li key={num} className={`page-item ${currentPage === num + 1 ? "active" : ""}`}>
-              <button className="page-link" onClick={() => setCurrentPage(num + 1)}>
-                {num + 1}
-              </button>
-            </li>
+      <div className="mb-4 category-bar text-center category-scroll">
+        <div className="d-flex flex-wrap justify-content-center gap-2">
+          {Object.keys(posterCategories).map((category) => (
+            <button
+              key={category}
+              className="category-btn"
+              onClick={() => scrollToCategory(category)}
+            >
+              {category.charAt(0).toUpperCase() + category.slice(1)}
+            </button>
           ))}
-        </ul>
+        </div>
       </div>
+
+      {/* Categories and Platforms */}
+      {Object.keys(posterCategories).map((category) => (
+        <div
+          key={category}
+          ref={sectionRefs.current[category]}
+          className="mb-5"
+        >
+          <h3 className="text-center mb-4">
+            {category.charAt(0).toUpperCase() + category.slice(1)}
+          </h3>
+
+          {/* Platforms inside category */}
+          {Object.keys(posterCategories[category]).map((platform) => (
+            <div key={platform} className="mb-4">
+              {/* Platform title + Download all */}
+              <div className="d-flex justify-content-between align-items-center mb-2">
+                <h5 className="mb-0">
+                  {platform.charAt(0).toUpperCase() + platform.slice(1)}
+                </h5>
+                <button
+                  className="btn btn-outline-primary btn-sm"
+                  onClick={() =>
+                    handleDownloadPlatform(
+                      category,
+                      platform,
+                      posterCategories[category][platform]
+                    )
+                  }
+                >
+                  Download All
+                </button>
+              </div>
+
+              {/* Images grid */}
+              <div className="row g-3">
+                {posterCategories[category][platform].map((imgSrc, index) => (
+                  <div key={index} className="col-6 col-md-4 col-lg-2">
+                    <div className="poster-wrapper">
+                      {/* Action Buttons */}
+                      <div className="image-actions">
+                        <button
+                          className="action-btn"
+                          title="Download"
+                          onClick={() =>
+                            handleDownloadSingle(imgSrc, platform, index)
+                          }
+                        >
+                          ⬇
+                        </button>
+                        <button
+                          className="action-btn"
+                          title="Share"
+                          onClick={() => handleShare(imgSrc)}
+                        >
+                          ➥
+                        </button>
+                      </div>
+
+                      <img
+                        src={imgSrc}
+                        alt={`${platform} Poster ${index + 1}`}
+                        className="img-fluid poster-img"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   );
 };
