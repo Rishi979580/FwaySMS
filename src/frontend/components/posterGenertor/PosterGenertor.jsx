@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
+import InfiniteScroll from "react-infinite-scroll-component";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./PosterGenerator.css";
 
@@ -27,7 +28,6 @@ const PosterGallery = () => {
     });
   };
 
-  // Download all images in a platform
   const handleDownloadPlatform = async (category, platform, images) => {
     const zip = new JSZip();
     const folder = zip.folder(`${category}/${platform}`);
@@ -48,7 +48,6 @@ const PosterGallery = () => {
     }
   };
 
-  // Download a single image
   const handleDownloadSingle = async (imgSrc, platform, index) => {
     try {
       const response = await fetch(imgSrc);
@@ -59,7 +58,6 @@ const PosterGallery = () => {
     }
   };
 
-  // Share an image
   const handleShare = async (imgSrc) => {
     if (navigator.share) {
       try {
@@ -72,7 +70,6 @@ const PosterGallery = () => {
         console.error("Error sharing:", error);
       }
     } else {
-      // Fallback: copy to clipboard
       navigator.clipboard.writeText(imgSrc);
       alert("Image link copied to clipboard!");
     }
@@ -128,41 +125,46 @@ const PosterGallery = () => {
                 </button>
               </div>
 
-              {/* Images grid */}
-              <div className="row g-3">
-                {posterCategories[category][platform].map((imgSrc, index) => (
-                  <div key={index} className="col-6 col-md-4 col-lg-2">
-                    <div className="poster-wrapper">
-                      {/* Action Buttons */}
-                      <div className="image-actions">
-                        <button
-                          className="action-btn"
-                          title="Download"
-                          onClick={() =>
-                            handleDownloadSingle(imgSrc, platform, index)
-                          }
-                        >
-                          ⬇
-                        </button>
-                        <button
-                          className="action-btn"
-                          title="Share"
-                          onClick={() => handleShare(imgSrc)}
-                        >
-                          ➥
-                        </button>
+              {/* Infinite Scroll for images */}
+              <InfiniteScroll
+                dataLength={posterCategories[category][platform].length}
+                next={() => {}} // backend pagination add karoge to logic yahan aayega
+                hasMore={false} // abhi saara data ek baar me aa raha hai
+                loader={<h6 className="text-center my-3">Loading...</h6>}
+              >
+                <div className="row g-3">
+                  {posterCategories[category][platform].map((imgSrc, index) => (
+                    <div key={index} className="col-6 col-md-4 col-lg-2">
+                      <div className="poster-wrapper">
+                        <div className="image-actions">
+                          <button
+                            className="action-btn"
+                            title="Download"
+                            onClick={() =>
+                              handleDownloadSingle(imgSrc, platform, index)
+                            }
+                          >
+                            ⬇
+                          </button>
+                          <button
+                            className="action-btn"
+                            title="Share"
+                            onClick={() => handleShare(imgSrc)}
+                          >
+                            ➥
+                          </button>
+                        </div>
+                        <img
+                          src={imgSrc}
+                          alt={`${platform} Poster ${index + 1}`}
+                          className="img-fluid poster-img"
+                          loading="lazy"
+                        />
                       </div>
-
-                      <img
-                        src={imgSrc}
-                        alt={`${platform} Poster ${index + 1}`}
-                        className="img-fluid poster-img"
-                        loading="lazy"
-                      />
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </InfiniteScroll>
             </div>
           ))}
         </div>
