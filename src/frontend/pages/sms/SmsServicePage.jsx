@@ -168,7 +168,7 @@ const SmsServiceModal = ({ show, handleClose }) => {
     <>
       <Modal show={show} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton className="shadow-sm border text-center">
-          <Modal.Title>Buy Messaging Subscription</Modal.Title>
+          <Modal.Title>Business Request Form — FutureWay</Modal.Title>
         </Modal.Header>
         <Modal.Body className="border shadow-sm">
           <Form>
@@ -238,7 +238,7 @@ const SmsServiceModal = ({ show, handleClose }) => {
             >
               {websiteData.Pricing.map((plan, index) => (
                 <option key={index} value={plan.Plan}>
-                  {`${plan.Plan} - ${plan.Messages} - ${plan.Price}`}
+                  {`${plan.Plan} - ${plan.Messages} -${plan.Social_Media_Mgmt}- ${plan.Post_Scheduling} - ${plan.Price}`}
                 </option>
               ))}
             </Form.Select>
