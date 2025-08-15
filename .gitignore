@@ -103,3 +103,9 @@ dist
 # Webpack files
 .cache/
 webpack/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
